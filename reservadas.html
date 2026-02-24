@@ -13,6 +13,7 @@
         .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
         .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
     </style>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="bg-slate-50">
     <!-- Navbar -->
@@ -20,7 +21,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                    <a href="index.html" class="flex items-center font-bold text-lg text-cyan-400">
+                        <svg class="h-6 w-6 mr-2 text-cyan-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8.7 6.3L3 12l5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.3 6.3L21 12l-5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Introdução à Linguagem C</span>
+                    </a>
                 </div>
                 <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
                     ☰

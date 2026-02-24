@@ -13,6 +13,7 @@
         .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
         .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
     </style>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body class="bg-slate-50">
     <!-- Navbar -->
@@ -20,7 +21,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                    <a href="index.html" class="flex items-center font-bold text-lg text-cyan-400">
+                        <svg class="h-6 w-6 mr-2 text-cyan-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M8.7 6.3L3 12l5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M15.3 6.3L21 12l-5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span>Introdução à Linguagem C</span>
+                    </a>
                 </div>
                 <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
                     ☰
@@ -131,6 +138,81 @@
             </code></pre>
 
             <p class="note"><strong>Importante:</strong> Ao compilar com <span class="inline-code">gcc</span>, adicione a flag <span class="inline-code">-lm</span> para linkar a biblioteca matemática: <span class="inline-code">gcc programa.c -o programa -lm</span></p>
+
+            <p class="note"><strong>Importante:</strong> Ao compilar com <span class="inline-code">gcc</span>, adicione a flag <span class="inline-code">-lm</span> para linkar a biblioteca matemática: <span class="inline-code">gcc programa.c -o programa -lm</span></p>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Definição de constantes</h3>
+            <p class="text-gray-700 mb-4">Constantes podem ser definidas de duas formas comuns em C: através de macros com <span class="inline-code">#define</span> ou usando a palavra-chave <span class="inline-code">const</span>. Cada abordagem tem vantagens:</p>
+            <ul class="text-gray-700 list-disc list-inside space-y-1 mb-4">
+                <li><span class="inline-code">#define</span> — substituição de pré-processador (sem tipagem, substitui texto antes da compilação).</li>
+                <li><span class="inline-code">const</span> — constante com tipo, respeitada pelo compilador (boa para depuração e segurança de tipo).</li>
+            </ul>
+
+            <p class="text-gray-700 mb-4"><strong>Exemplos:</strong></p>
+            <pre><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+#define PI_MACRO 3.141592653589793
+
+int main(void) {
+    double r = 5.0;
+
+    // Usando macro
+    printf("Área (macro) = %.6f\n", PI_MACRO * r * r);
+
+    // Usando const (recomendado quando se quer tipagem)
+    const double PI_CONST = 3.141592653589793;
+    printf("Área (const)  = %.6f\n", PI_CONST * pow(r, 2));
+
+    return 0;
+}
+            </code></pre>
+
+            <p class="text-gray-700 mb-4">Observações rápidas:</p>
+            <ul class="text-gray-700 list-disc list-inside space-y-1 mb-4">
+                <li>Macros não têm verificação de tipo — cuidado com parênteses, por exemplo: <span class="inline-code">#define SQR(x) ((x)*(x))</span>.</li>
+                <li><span class="inline-code">const</span> permite declarar constantes tipadas e é geralmente preferível para valores com tipo conhecido.</li>
+                <li>Para constantes inteiras relacionadas, <span class="inline-code">enum</span> é uma alternativa prática: <span class="inline-code">enum { MAX_USERS = 100 };</span></li>
+                <li>Use convenções de nomenclatura (MAIÚSCULAS para macros) para manter o código legível.</li>
+            </ul>
+
+            <h4 class="text-lg font-bold text-blue-700 mb-3 mt-4">Contexto teórico adicional</h4>
+            <p class="text-gray-700 mb-3">Alguns pontos teóricos importantes para entender como constantes e funções matemáticas se comportam em C:</p>
+
+            <p class="text-gray-700 mb-2"><strong>Portabilidade do valor de π (PI)</strong>: a constante <span class="inline-code">M_PI</span> é fornecida por muitas implementações de <span class="inline-code">&lt;math.h&gt;</span>, mas não faz parte do padrão ISO C. Para obter π de forma portátil, é comum usar <span class="inline-code">acos(-1.0)</span> ou definir explicitamente a constante no seu código.</p>
+
+            <pre><code>#include &lt;math.h&gt;
+/* portátil: */
+const double PI = acos(-1.0);
+/* alternativa (definir manualmente) */
+#define PI_MANUAL 3.141592653589793
+            </code></pre>
+
+            <p class="text-gray-700 mb-2"><strong>Precisão e tipos</strong>: as funções em <span class="inline-code">&lt;math.h&gt;</span> tipicamente usam e retornam <span class="inline-code">double</span>. Use <span class="inline-code">float</span> quando a memória/performance exigir, mas lembre-se da menor precisão. Evite confundir operações inteiras com ponto-flutuante (ex.: <span class="inline-code">3/2 == 1</span> enquanto <span class="inline-code">3.0/2 == 1.5</span>).</p>
+
+            <p class="text-gray-700 mb-2"><strong>Desempenho</strong>: para potências com expoente inteiro pequeno, multiplicações diretas são mais rápidas que <span class="inline-code">pow()</span>. Use <span class="inline-code">pow()</span> para casos gerais.</p>
+
+            <p class="text-gray-700 mb-2"><strong>Erros de domínio e tratamento</strong>: chamadas como <span class="inline-code">sqrt()</span> em valores fora do domínio (ex.: número negativo) podem resultar em <span class="inline-code">NaN</span> e/ ou configurar <span class="inline-code">errno</span>. Para código robusto, verifique entradas antes da chamada ou use <span class="inline-code">errno</span> e <span class="inline-code">isnan()</span> para detecção de erro.</p>
+
+            <pre><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include &lt;errno.h&gt;
+
+int main(void) {
+    errno = 0;
+    double v = -1.0;
+    double r = sqrt(v);
+    if (errno == EDOM) {
+        printf("Erro de domínio ao calcular sqrt(): entrada negativa\n");
+    }
+    if (isnan(r)) {
+        printf("Resultado é NaN\n");
+    }
+    return 0;
+}
+            </code></pre>
+
+            <p class="text-gray-700 mb-4">Esses cuidados ajudam a escrever código mais portátil e previsível, principalmente ao lidar com diferenças entre compiladores e arquiteturas (precisão, implementação de math.h, flags de link).</p>
 
             <p class="note">Exercício rápido: compile um arquivo `hello.c` com <span class="inline-code">gcc hello.c -o hello</span> e execute <span class="inline-code">./hello</span> (no Windows use o executável gerado).</p>
         </div>
