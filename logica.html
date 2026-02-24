@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Operadores - Lógica em C</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
+        pre code { display: block; white-space: pre; }
+        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
+        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f1f5f9; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                </div>
+                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
+                    ☰
+                </button>
+                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">4. Lógica e Operadores</a>
+                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-nav" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">4. Lógica e Operadores</a>
+                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-blue-900 mb-8">Operadores</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Operadores Aritméticos</h2>
+            <p class="text-gray-700 mb-4">Usados para realizar operações matemáticas básicas.</p>
+            <div class="overflow-x-auto mb-4">
+                <table>
+                    <thead><tr><th>Operador</th><th>Descrição</th><th>Exemplo</th><th>Resultado</th></tr></thead>
+                    <tbody>
+                        <tr><td>+</td><td>Adição</td><td><span class="inline-code">5 + 3</span></td><td><span class="inline-code">8</span></td></tr>
+                        <tr><td>-</td><td>Subtração</td><td><span class="inline-code">5 - 3</span></td><td><span class="inline-code">2</span></td></tr>
+                        <tr><td>*</td><td>Multiplicação</td><td><span class="inline-code">5 * 3</span></td><td><span class="inline-code">15</span></td></tr>
+                        <tr><td>/</td><td>Divisão</td><td><span class="inline-code">15 / 3</span></td><td><span class="inline-code">5</span></td></tr>
+                        <tr><td>%</td><td>Módulo (resto)</td><td><span class="inline-code">17 % 5</span></td><td><span class="inline-code">2</span></td></tr>
+                        <tr><td>++</td><td>Incremento</td><td><span class="inline-code">x++</span></td><td>Aumenta x em 1</td></tr>
+                        <tr><td>--</td><td>Decremento</td><td><span class="inline-code">x--</span></td><td>Diminui x em 1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo de Uso</h3>
+            <pre><code><span class="type">int</span> a = <span class="num">10</span>;
+<span class="type">int</span> b = <span class="num">3</span>;
+
+<span class="func">printf</span>(<span class="str">"Adição: %d\n"</span>, a + b);        <span class="comment">// 13</span>
+<span class="func">printf</span>(<span class="str">"Subtração: %d\n"</span>, a - b);    <span class="comment">// 7</span>
+<span class="func">printf</span>(<span class="str">"Multiplicação: %d\n"</span>, a * b); <span class="comment">// 30</span>
+<span class="func">printf</span>(<span class="str">"Divisão: %d\n"</span>, a / b);       <span class="comment">// 3</span>
+<span class="func">printf</span>(<span class="str">"Módulo: %d\n"</span>, a % b);       <span class="comment">// 1</span>
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Operadores Relacionais</h2>
+            <p class="text-gray-700 mb-4">Usados para comparar valores. Resultado: 0 (falso) ou 1 (verdadeiro) em expressões condicionais.</p>
+            <div class="overflow-x-auto mb-4">
+                <table>
+                    <thead><tr><th>Operador</th><th>Descrição</th><th>Exemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td>==</td><td>Igual a</td><td><span class="inline-code">a == b</span></td></tr>
+                        <tr><td>!=</td><td>Diferente de</td><td><span class="inline-code">a != b</span></td></tr>
+                        <tr><td>&gt;</td><td>Maior que</td><td><span class="inline-code">a &gt; b</span></td></tr>
+                        <tr><td>&lt;</td><td>Menor que</td><td><span class="inline-code">a &lt; b</span></td></tr>
+                        <tr><td>&gt;=</td><td>Maior ou igual</td><td><span class="inline-code">a &gt;= b</span></td></tr>
+                        <tr><td>&lt;=</td><td>Menor ou igual</td><td><span class="inline-code">a &lt;= b</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Operadores Lógicos</h2>
+            <p class="text-gray-700 mb-4">Combinam expressões booleanas.</p>
+            <div class="overflow-x-auto mb-4">
+                <table>
+                    <thead><tr><th>Operador</th><th>Descrição</th><th>Exemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td>&amp;&amp;</td><td>AND lógico (verdadeiro se ambas as expressões forem verdadeiras)</td><td><span class="inline-code">a &gt; 0 &amp;&amp; b &lt; 10</span></td></tr>
+                        <tr><td>||</td><td>OR lógico (verdadeiro se uma das expressões for verdadeira)</td><td><span class="inline-code">a == 0 || b == 0</span></td></tr>
+                        <tr><td>!</td><td>NOT lógico (negação)</td><td><span class="inline-code">!condicao</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Verdadeiro e Falso em C</h3>
+            <p class="text-gray-700 mb-4">Em C, <strong>0</strong> é considerado <em>falso</em>. Qualquer valor diferente de 0 é considerado <em>verdadeiro</em>.</p>
+
+            <pre><code><span class="kw">if</span> (x) {
+    <span class="comment">// executa se x != 0</span>
+} <span class="kw">else</span> {
+    <span class="comment">// executa se x == 0</span>
+}
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Precedência de Operadores</h2>
+            <p class="text-gray-700 mb-4">A precedência determina a ordem em que as operações são executadas. Operadores com maior precedência são avaliados primeiro.</p>
+            
+            <div class="overflow-x-auto mb-4">
+                <table>
+                    <thead><tr><th>Precedência</th><th>Operadores</th><th>Associatividade</th><th>Exemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>1 (Máxima)</strong></td><td>() [] . -&gt;</td><td>Esquerda para direita</td><td><span class="inline-code">(a + b)</span></td></tr>
+                        <tr><td><strong>2</strong></td><td>! ~ ++ -- + - * &amp;</td><td>Direita para esquerda</td><td><span class="inline-code">!a, ++x</span></td></tr>
+                        <tr><td><strong>3</strong></td><td>* / %</td><td>Esquerda para direita</td><td><span class="inline-code">a * b / c</span></td></tr>
+                        <tr><td><strong>4</strong></td><td>+ -</td><td>Esquerda para direita</td><td><span class="inline-code">a + b - c</span></td></tr>
+                        <tr><td><strong>5</strong></td><td>&lt; &lt;= &gt; &gt;=</td><td>Esquerda para direita</td><td><span class="inline-code">a &lt; b</span></td></tr>
+                        <tr><td><strong>6</strong></td><td>== !=</td><td>Esquerda para direita</td><td><span class="inline-code">a == b</span></td></tr>
+                        <tr><td><strong>7</strong></td><td>&amp;&amp;</td><td>Esquerda para direita</td><td><span class="inline-code">a &amp;&amp; b</span></td></tr>
+                        <tr><td><strong>8</strong></td><td>||</td><td>Esquerda para direita</td><td><span class="inline-code">a || b</span></td></tr>
+                        <tr><td><strong>9 (Mínima)</strong></td><td>= += -= *= /=</td><td>Direita para esquerda</td><td><span class="inline-code">a = b + c</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplos de Precedência</h3>
+            <pre><code><span class="type">int</span> a = <span class="num">10</span>, b = <span class="num">5</span>, c = <span class="num">2</span>;
+
+<span class="comment">// Sem parênteses: * tem precedência sobre +</span>
+<span class="type">int</span> resultado = a + b * c;  <span class="comment">// 20 (não 30)</span>
+
+<span class="comment">// Com parênteses: força ordem diferente</span>
+resultado = (a + b) * c;  <span class="comment">// 30</span>
+
+<span class="comment">// Operadores lógicos: &amp;&amp; tem precedência sobre ||</span>
+<span class="kw">if</span> (a > <span class="num">5</span> || b > <span class="num">10</span> &amp;&amp; c > <span class="num">1</span>) {
+    <span class="comment">// Avaliado como: (a > 5) || (b > 10 &amp;&amp; c > 1)</span>
+}
+            </code></pre>
+
+            <p class="note"><strong>Dica:</strong> Use parênteses para deixar claro a ordem de avaliação, mesmo que não sejam obrigatórios. Isso torna o código mais legível e evita erros!</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exemplos Rápidos</h2>
+            <pre><code><span class="type">int</span> a = <span class="num">5</span>;
+<span class="type">int</span> b = <span class="num">0</span>;
+
+<span class="kw">if</span> (a &gt; <span class="num">3</span> &amp;&amp; b == <span class="num">0</span>) {
+    <span class="func">printf</span>(<span class="str">"Condição satisfeita\n"</span>);
+}
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício</h2>
+            <form data-quiz-id="logic-q1" data-quiz-answer="yes">
+                <p class="text-gray-700 mb-3"><strong>1.</strong> Em C, qual das opções é tratada como <em>falso</em>?</p>
+                <div class="space-y-2 mb-4">
+                    <label class="block"><input type="radio" name="q1" value="yes" class="mr-2"> <span class="inline-code">0</span></label>
+                    <label class="block"><input type="radio" name="q1" value="no" class="mr-2"> <span class="inline-code">1</span></label>
+                    <label class="block"><input type="radio" name="q1" value="maybe" class="mr-2"> <span class="inline-code">-1</span></label>
+                </div>
+                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
+                <div id="logic-q1-result" class="mt-3"></div>
+            </form>
+
+            <button type="button" data-toggle-answer="logic-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
+            <div id="logic-q1-explain" style="display:none;" class="note mt-4">
+                Em C, <strong>0</strong> é considerado falso; qualquer outro valor é verdadeiro.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('mobile-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-nav');
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

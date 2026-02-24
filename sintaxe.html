@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IntroC - Sintaxe e Tipos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
+        pre code { display: block; white-space: pre; }
+        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
+        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f1f5f9; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                </div>
+                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
+                    ☰
+                </button>
+                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">2. Sintaxe e Tipos</a>
+                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-nav" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">2. Sintaxe e Tipos</a>
+                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-blue-900 mb-8">Sintaxe Básica e Tipos</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Tipos de Dados Comuns</h2>
+            <p class="text-gray-700 mb-4">Tipos básicos em C e exemplos:</p>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead><tr><th>Tipo</th><th>Descrição</th><th>Exemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="inline-code">char</span></td><td>Caractere (mínimo 8 bits)</td><td><span class="inline-code">char c = 'A';</span></td></tr>
+                        <tr><td><span class="inline-code">int</span></td><td>Inteiro (tamanho dependente da implementação)</td><td><span class="inline-code">int n = 42;</span></td></tr>
+                        <tr><td><span class="inline-code">float</span></td><td>Número de ponto flutuante (precisão simples)</td><td><span class="inline-code">float x = 3.14f;</span></td></tr>
+                        <tr><td><span class="inline-code">double</span></td><td>Ponto flutuante (precisão dupla)</td><td><span class="inline-code">double d = 2.71828;</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Entrada e Saída: <span class="inline-code">printf</span> e <span class="inline-code">scanf</span></h2>
+            <p class="text-gray-700 mb-4"><span class="inline-code">printf</span> formata e escreve na saída padrão; <span class="inline-code">scanf</span> lê valores da entrada padrão usando especificadores de formato.</p>
+
+            <pre><code><span class="func">printf</span>(<span class="str">"Valor inteiro: %d\n"</span>, <span class="num">n</span>);
+<span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;<span class="num">n</span>);
+            </code></pre>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Especificadores de formato comuns</h3>
+            <div class="overflow-x-auto mb-4">
+                <table>
+                    <thead><tr><th>Especificador</th><th>Tipo</th><th>Exemplo</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="inline-code">%d</span></td><td><span class="inline-code">int</span></td><td><span class="inline-code">printf("%d", 10);</span></td></tr>
+                        <tr><td><span class="inline-code">%c</span></td><td><span class="inline-code">char</span></td><td><span class="inline-code">printf("%c", 'A');</span></td></tr>
+                        <tr><td><span class="inline-code">%f</span></td><td><span class="inline-code">float</span></td><td><span class="inline-code">printf("%f", 3.14f);</span></td></tr>
+                        <tr><td><span class="inline-code">%lf</span></td><td><span class="inline-code">double</span></td><td><span class="inline-code">printf("%lf", 2.71828);</span></td></tr>
+                        <tr><td><span class="inline-code">%s</span></td><td>String (array de char)</td><td><span class="inline-code">printf("%s", nome);</span></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <pre><code>// Leitura segura de um inteiro
+<span class="type">int</span> idade;
+<span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;idade);
+
+// Exemplo completo
+<span class="type">int</span> main(void) {
+    <span class="type">int</span> n = <span class="num">0</span>;
+    <span class="func">printf</span>(<span class="str">"Digite um número: "</span>);
+    <span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;n);
+    <span class="func">printf</span>(<span class="str">"Você digitou: %d\n"</span>, n);
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício</h2>
+            <form data-quiz-id="sintaxe-q1" data-quiz-answer="%d">
+                <p class="text-gray-700 mb-3"><strong>1.</strong> Qual especificador do <span class="inline-code">printf</span> é usado para imprimir um <span class="inline-code">int</span>?</p>
+                <div class="space-y-2 mb-4">
+                    <label class="block"><input type="radio" name="q1" value="%d" class="mr-2"> <span class="inline-code">%d</span></label>
+                    <label class="block"><input type="radio" name="q1" value="%f" class="mr-2"> <span class="inline-code">%f</span></label>
+                    <label class="block"><input type="radio" name="q1" value="%s" class="mr-2"> <span class="inline-code">%s</span></label>
+                </div>
+                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
+                <div id="sintaxe-q1-result" class="mt-3"></div>
+            </form>
+
+            <button type="button" data-toggle-answer="sintaxe-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
+            <div id="sintaxe-q1-explain" style="display:none;" class="note mt-4">
+                Use <span class="inline-code">%d</span> para inteiros; <span class="inline-code">%f</span> para float; <span class="inline-code">%s</span> para strings.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        mobileToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+            mobileToggle.setAttribute('aria-expanded', mobileToggle.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

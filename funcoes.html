@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Funções e Matrizes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
+        pre code { display: block; white-space: pre; }
+        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
+        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                </div>
+                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
+                    ☰
+                </button>
+                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">6. Funções e Matrizes</a>
+                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-nav" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">6. Funções e Matrizes</a>
+                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-blue-900 mb-8">Funções e Modularização</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">O que é uma Função?</h2>
+            <p class="text-gray-700 mb-4">Funções são blocos de código responsáveis por uma tarefa específica. Elas permitem modularizar o programa, tornando-o mais legível e reutilizável.</p>
+            <p class="text-gray-700 mb-4"><strong>Sintaxe:</strong> <span class="inline-code">tipo_retorno nome_funcao(parâmetros) { corpo }</span></p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Funções com Retorno</h2>
+            <p class="text-gray-700 mb-4">Funções que retornam um valor ao código que as chamou. Use <span class="inline-code">return</span> para enviar o valor.</p>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo 1: Função Simples</h3>
+            <pre><code><span class="comment">// Função que soma dois inteiros e retorna o resultado</span>
+<span class="type">int</span> <span class="func">soma</span>(<span class="type">int</span> a, <span class="type">int</span> b) {
+    <span class="kw">return</span> a + b;
+}
+
+<span class="type">int</span> <span class="kw">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span> r = <span class="func">soma</span>(<span class="num">2</span>, <span class="num">3</span>);  <span class="comment">// r = 5</span>
+    <span class="func">printf</span>(<span class="str">"Resultado = %d\n"</span>, r);
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo 2: Função com Mais Lógica</h3>
+            <pre><code><span class="comment">// Função que calcula a média de três notas</span>
+<span class="type">float</span> <span class="func">media</span>(<span class="type">float</span> n1, <span class="type">float</span> n2, <span class="type">float</span> n3) {
+    <span class="type">float</span> resultado = (n1 + n2 + n3) / <span class="num">3.0</span>;
+    <span class="kw">return</span> resultado;
+}
+
+<span class="type">int</span> <span class="kw">main</span>(<span class="type">void</span>) {
+    <span class="type">float</span> m = <span class="func">media</span>(<span class="num">7.5</span>, <span class="num">8.0</span>, <span class="num">6.5</span>);
+    <span class="func">printf</span>(<span class="str">"Média = %.2f\n"</span>, m);  <span class="comment">// 7.33</span>
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Funções Sem Retorno (void)</h2>
+            <p class="text-gray-700 mb-4">Funções que não retornam valor, apenas executam uma ação. Use o tipo <span class="inline-code">void</span> como tipo de retorno.</p>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo 1: Função que Imprime</h3>
+            <pre><code><span class="comment">// Função que imprime uma mensagem (sem retorno)</span>
+<span class="type">void</span> <span class="func">saudacao</span>(<span class="type">char</span> *nome) {
+    <span class="func">printf</span>(<span class="str">"Olá, %s!\n"</span>, nome);
+    <span class="comment">// Não há 'return' pois é void</span>
+}
+
+<span class="type">int</span> <span class="kw">main</span>(<span class="type">void</span>) {
+    <span class="func">saudacao</span>(<span class="str">"João"</span>);    <span class="comment">// Olá, João!</span>
+    <span class="func">saudacao</span>(<span class="str">"Maria"</span>);   <span class="comment">// Olá, Maria!</span>
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo 2: Função que Modifica Dados</h3>
+            <pre><code><span class="comment">// Função que modifica valores através de ponteiros</span>
+<span class="type">void</span> <span class="func">incrementar</span>(<span class="type">int</span> *valor) {
+    (*valor)++;  <span class="comment">// incrementa o valor apontado</span>
+}
+
+<span class="type">int</span> <span class="kw">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span> x = <span class="num">5</span>;
+    <span class="func">printf</span>(<span class="str">"Antes: %d\n"</span>, x);      <span class="comment">// 5</span>
+    <span class="func">incrementar</span>(&amp;x);
+    <span class="func">printf</span>(<span class="str">"Depois: %d\n"</span>, x);     <span class="comment">// 6</span>
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Vetores (Matrizes Unidimensionais)</h2>
+            <p class="text-gray-700 mb-4">Vetores armazenam múltiplos elementos do mesmo tipo em posições de memória contíguas. Em C, o primeiro índice é <strong>0</strong>.</p>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Declaração e Inicialização</h3>
+            <pre><code><span class="comment">// Declaração sem inicialização</span>
+<span class="type">int</span> notas[<span class="num">5</span>];  <span class="comment">// cria vetor com 5 posições (índices 0..4)</span>
+
+<span class="comment">// Inicialização ao declarar</span>
+<span class="type">int</span> valores[] = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>};
+<span class="type">char</span> vogais[] = {'a', 'e', 'i', 'o', 'u'};
+
+<span class="comment">// Acessar elementos</span>
+notas[<span class="num">0</span>] = <span class="num">8</span>;      <span class="comment">// primeiro elemento</span>
+notas[<span class="num">4</span>] = <span class="num">9</span>;      <span class="comment">// último elemento (índice = tamanho - 1)</span>
+            </code></pre>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Iterando sobre Vetores</h3>
+            <pre><code><span class="type">int</span> numeros[] = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>};
+<span class="type">int</span> tamanho = <span class="num">4</span>;
+
+<span class="comment">// Imprimindo todos os elementos</span>
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; tamanho; i++) {
+    <span class="func">printf</span>(<span class="str">"%d\n"</span>, numeros[i]);
+}
+            </code></pre>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Funções com Vetores</h3>
+            <pre><code><span class="comment">// Função que soma todos os elementos de um vetor</span>
+<span class="type">int</span> <span class="func">somar_vetor</span>(<span class="type">int</span> *v, <span class="type">int</span> tamanho) {
+    <span class="type">int</span> soma = <span class="num">0</span>;
+    <span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; tamanho; i++) {
+        soma += v[i];
+    }
+    <span class="kw">return</span> soma;
+}
+
+<span class="type">int</span> <span class="kw">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span> valores[] = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>};
+    <span class="type">int</span> resultado = <span class="func">somar_vetor</span>(valores, <span class="num">5</span>);
+    <span class="func">printf</span>(<span class="str">"Soma = %d\n"</span>, resultado);  <span class="comment">// 15</span>
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+
+            <p class="note"><strong>Importante:</strong> Ao passar um vetor para uma função, passa-se um <strong>ponteiro</strong> para o primeiro elemento. Por isso use <span class="inline-code">int *v</span> ou <span class="inline-code">int v[]</span> (equivalentes). Sempre passe o tamanho do vetor como parâmetro!</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Matrizes Bidimensionais</h2>
+            <p class="text-gray-700 mb-4">Matrizes com linhas e colunas. Ideais para representar dados em grade.</p>
+
+            <pre><code><span class="comment">// Declaração de matriz 3x3</span>
+<span class="type">int</span> matriz[<span class="num">3</span>][<span class="num">3</span>];
+
+<span class="comment">// Inicialização</span>
+<span class="type">int</span> grid[<span class="num">2</span>][<span class="num">2</span>] = {
+    {<span class="num">1</span>, <span class="num">2</span>},
+    {<span class="num">3</span>, <span class="num">4</span>}
+};
+
+<span class="comment">// Acessando elementos</span>
+matriz[<span class="num">0</span>][<span class="num">0</span>] = <span class="num">5</span>;  <span class="comment">// linha 0, coluna 0</span>
+
+<span class="comment">// Iterando em matriz</span>
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">3</span>; i++) {
+    <span class="kw">for</span> (<span class="type">int</span> j = <span class="num">0</span>; j &lt; <span class="num">3</span>; j++) {
+        <span class="func">printf</span>(<span class="str">"%d "</span>, matriz[i][j]);
+    }
+    <span class="func">printf</span>(<span class="str">"\n"</span>);
+}
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício</h2>
+            <form data-quiz-id="funcoes-q1" data-quiz-answer="0">
+                <p class="text-gray-700 mb-3"><strong>1.</strong> Qual é o índice do primeiro elemento de um vetor em C?</p>
+                <div class="space-y-2 mb-4">
+                    <label class="block"><input type="radio" name="q1" value="0" class="mr-2"> 0</label>
+                    <label class="block"><input type="radio" name="q1" value="1" class="mr-2"> 1</label>
+                    <label class="block"><input type="radio" name="q1" value="-1" class="mr-2"> -1</label>
+                </div>
+                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
+                <div id="funcoes-q1-result" class="mt-3"></div>
+            </form>
+
+            <button type="button" data-toggle-answer="funcoes-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
+            <div id="funcoes-q1-explain" style="display:none;" class="note mt-4">
+                Em C, o primeiro índice de um vetor é <strong>0</strong>. Ex.: <span class="inline-code">arr[0]</span> acessa o primeiro elemento.
+            </div>
+        </div>
+    </main>
+    <script>
+        document.getElementById('mobile-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-nav');
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+    </scriptdiv>
+        </div>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>

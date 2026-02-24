@@ -1,0 +1,11 @@
+/* Tailwind CSS v3 - Custom utilities and syntax highlighting */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+/* Syntax highlighting classes */
+.kw { color: #8be7ff; font-weight: 600; }
+.type { color: #65f4a6; }
+.func { color: #ffd580; }
+.str { color: #ffda9e; }
+.num { color: #ffb86b; }
+.comment { color: #7e8b95; font-style: italic; }

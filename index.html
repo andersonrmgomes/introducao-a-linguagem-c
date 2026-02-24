@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>IntroC - Primeiros Passos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
+        pre code { display: block; white-space: pre; }
+        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
+        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                </div>
+                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
+                    ☰
+                </button>
+                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">1. Primeiros Passos</a>
+                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-nav" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">1. Primeiros Passos</a>
+                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
+                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-blue-900 mb-8">Primeiros Passos</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Breve História e Propósito da Linguagem C</h2>
+            <p class="text-gray-700 mb-4">A linguagem C foi desenvolvida por Dennis Ritchie nos laboratórios Bell (AT&T) no início dos anos 1970 para implementar o sistema operacional UNIX. C tornou-se popular por sua eficiência, controle de baixo nível (acesso à memória), e portabilidade entre plataformas — sendo usada em sistemas operacionais, compiladores, embarcados, ferramentas e bibliotecas.</p>
+            <p class="text-gray-700">Visão geral: C oferece um conjunto compacto de construções de linguagem que permitem escrever código de alto desempenho, com controle explícito sobre alocação de memória, tipos primitivos e ponteiros.</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Onde o programa começa</h2>
+            <p class="text-gray-700 mb-4">Em C, a execução sempre inicia pela função <span class="inline-code">main()</span>. O sistema operacional chama essa função e a partir dela seu programa controla o fluxo.</p>
+
+            <h2 class="text-2xl font-bold text-blue-700 mb-4 mt-6">Ponto e vírgula (<span class="inline-code">;</span>)</h2>
+            <p class="text-gray-700 mb-4">C exige que cada instrução termine em ponto e vírgula. Esquecer o ponto e vírgula causa erro de compilação.</p>
+
+            <pre><code>#include &lt;stdio.h&gt;
+
+<span class="type">int</span> <span class="kw">main</span>(void) {
+    <span class="func">printf</span>(<span class="str">"Olá, mundo!\n"</span>);
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+
+            <h2 class="text-2xl font-bold text-blue-700 mb-4 mt-6">Incluir bibliotecas</h2>
+            <p class="text-gray-700 mb-4">Use <span class="inline-code">#include &lt;nome&gt;</span> para declarar dependências de bibliotecas padrão. Por exemplo, <span class="inline-code">&lt;stdio.h&gt;</span> fornece <span class="inline-code">printf</span> e <span class="inline-code">scanf</span>.</p>
+
+            <pre><code>#include &lt;stdio.h&gt;  // entrada/saída padrão
+            </code></pre>
+
+            <p class="note">Exercício rápido: compile um arquivo `hello.c` com <span class="inline-code">gcc hello.c -o hello</span> e execute <span class="inline-code">./hello</span> (no Windows use o executável gerado).</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício</h2>
+            <form data-quiz-id="index-q1" data-quiz-answer="main">
+                <p class="text-gray-700 mb-3"><strong>1.</strong> Qual é o ponto de entrada de um programa em C?</p>
+                <div class="space-y-2 mb-4">
+                    <label class="block"><input type="radio" name="q1" value="main" class="mr-2"> <span class="inline-code">main()</span></label>
+                    <label class="block"><input type="radio" name="q1" value="start" class="mr-2"> <span class="inline-code">start()</span></label>
+                    <label class="block"><input type="radio" name="q1" value="entry" class="mr-2"> <span class="inline-code">entry()</span></label>
+                </div>
+                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
+                <div id="index-q1-result" class="mt-3"></div>
+            </form>
+
+            <button type="button" data-toggle-answer="index-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
+            <div id="index-q1-explain" style="display:none;" class="note mt-4">
+                Em C a função <span class="inline-code">main()</span> é o ponto de entrada. Use <span class="inline-code">return 0;</span> para indicar sucesso.
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobile-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+        mobileToggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('hidden');
+            mobileToggle.setAttribute('aria-expanded', mobileToggle.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');
+        });
+    </script>
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Entrada e Saída em C</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
+        pre code { display: block; white-space: pre; }
+        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
+        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f1f5f9; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Navbar -->
+    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-bold text-lg text-cyan-400">Introdução à Linguagem C</a>
+                </div>
+                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
+                    ☰
+                </button>
+                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">3. Entrada e Saída</a>
+                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+                </div>
+            </div>
+            <!-- Mobile menu (hidden by default) -->
+            <div id="mobile-nav" class="hidden md:hidden pb-4">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
+                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
+                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">3. Entrada e Saída</a>
+                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
+                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
+                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
+                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
+                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold text-blue-900 mb-8">Entrada e Saída (I/O)</h1>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Visão Geral</h2>
+            <p class="text-gray-700">Em C, a biblioteca padrão <span class="inline-code">stdio.h</span> fornece funções de entrada e saída como <span class="inline-code">printf</span>, <span class="inline-code">scanf</span>, e <span class="inline-code">fgets</span>. Use <span class="inline-code">printf</span> para formatar saída e <span class="inline-code">scanf</span> ou <span class="inline-code">fgets</span> para ler da entrada padrão.</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4"><span class="inline-code">printf</span> e especificadores</h2>
+            <p class="text-gray-700 mb-4"><span class="inline-code">printf</span> usa especificadores de formato para converter valores em texto.</p>
+            <div class="overflow-x-auto mb-4">
+            <table>
+                <thead><tr><th>Especificador</th><th>Tipo</th><th>Exemplo</th></tr></thead>
+                <tbody>
+                    <tr><td><span class="inline-code">%d</span></td><td>int</td><td><span class="inline-code">printf("%d", 10);</span></td></tr>
+                    <tr><td><span class="inline-code">%c</span></td><td>char</td><td><span class="inline-code">printf("%c", 'A');</span></td></tr>
+                    <tr><td><span class="inline-code">%f</span></td><td>float</td><td><span class="inline-code">printf("%.2f", 3.1415);</span></td></tr>
+                    <tr><td><span class="inline-code">%lf</span></td><td>double</td><td><span class="inline-code">printf("%lf", 2.71828);</span></td></tr>
+                    <tr><td><span class="inline-code">%s</span></td><td>string (char*)</td><td><span class="inline-code">printf("%s", name);</span></td></tr>
+                </tbody>
+            </div>
+
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Campo de largura e precisão</h3>
+            <p class="text-gray-700">Ex.: <span class="inline-code">%6d</span> (largura mínima 6), <span class="inline-code">%.2f</span> (2 casas decimais), <span class="inline-code">%8.3f</span> (largura 8, 3 decimais).</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h class="text-gray-700 mb-4"><span class="inline-code">scanf</span> lê dados segundo especificadores. Atenção a problemas comuns:</p>
+            <ul class="text-gray-700 mb-4 list-disc list-inside space-y-2">
+                <li>Use <span class="inline-code">&amp;</span> para endereços de variáveis (ex.: <span class="inline-code">&amp;n</span>).</li>
+                <li><span class="inline-code">%s</span> lê até primeiro espaço — pode causar overflow se o buffer for pequeno.</li>
+                <li>Verifique o valor de retorno de <span class="inline-code">scanf</span> (número de itens lidos) para validar entradas.</li>
+                <li>Misturar <span class="inline-code">scanf</span> e <span class="inline-code">fgets</span> precisa de cuidado com caracteres de nova linha remanescentes.</li>
+            </ul>
+
+            <pre><code><span class="comment">// Exemplo seguro com especificador de largura</span>
+char name[32];
+<span class="func">scanf</span>(<span class="str">"%31s"</span>, name);  <span class="comment">// impede overflow (reserve 1 para null)</span>
+            </code></pre>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4"
+        <div c class="text-gray-700 mb-4"><span class="inline-code">fgets</span> lê até um máximo de caracteres ou até encontrar '\n'. É a forma segura de ler linhas (substitui <span class="inline-code">gets</span>, que é inseguro).</p>
+
+            <pre><code><span class="comment">// Ler uma linha com fgets e remover o newline</span>
+char buf[128];
+if (<span class="func">fgets</span>(buf, sizeof(buf), stdin) != NULL) {
+    <span class="comment">// remover '\n' se presente</span>
+    size_t len = <span class="func">strcspn</span>(buf, "\n");
+    if (buf[len] == '\n') buf[len] = '\0';
+    <span class="func">printf</span>(<span class="str">"Linha: %s\n"</span>, buf);
+}
+            </code></pre>
+
+            <p class="text-gray-700 mt-4">Para usar <span class="inline-code">strcspn</span> inclua <span class="inline-code">string.h</span>. Outra opção é usar <span class="inline-code">sscanf</span> em uma string lida por <span class="inline-code">fgets</span> para parsear números com validação.</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4"
+        <div class="card">
+            <h2>Exemplo completo: misturando I/O</h2>
+            <pre><code><span class="type">#include</span> &lt;stdio.h&gt;
+<span class="type">#include</span> &lt;string.h&gt;
+
+<span class="type">int</span> main(void) {
+    char nome[64];
+    int idade;
+
+    <span class="func">printf</span>(<span class="str">"Digite seu nome: "</span>);
+    <span class="func">fgets</span>(nome, sizeof(nome), stdin);
+    nome[<span class="func">strcspn</span>(nome, "\n")] = '\0';
+
+    <span class="func">printf</span>(<span class="str">"Digite sua idade: "</span>);
+    if (<span class="func">fgets</span>(buf, sizeof(buf), stdin) != NULL) {
+        if (<span class="func">sscanf</span>(buf, <span class="str">"%d"</span>, &amp;idade) != 1) {
+            <span class="func">printf</span>(<span class="str">"Entrada inválida\n"</span>);
+            <span class="kw">return</span> <span class="num">1</span>;
+        }
+    }
+
+    <span class="func">printf</span>(<span class="str">"Nome: %s, Idade: %d\n"</span>, nome, idade);
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+        </div>bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4">Resumo — Boas práticas</h2>
+            <ul class="text-gray-700 list-disc list-inside space-y-2">
+                <li>Prefira <span class="inline-code">fgets</span> para leitura de strings; remova o '\n' manualmente.</li>
+                <li>Use especificadores de largura em <span class="inline-code">scanf</span> (ex.: <span class="inline-code">%31s</span>).</li>
+                <li>Valide o retorno de <span class="inline-code">scanf</span> e <span class="inline-code">sscanf</span>.</li>
+                <li>Evite <span class="inline-code">gets</span> (removida do padrão). Use <span class="inline-code">fgets</span>.</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-bold text-blue-700 mb-4"
+        <div class="card">
+            <h2>Ex class="text-gray-700 mb-3"><strong>1.</strong> Qual função é recomendada para leitura segura de linhas em C?</p>
+                <div class="space-y-2 mb-4">
+                    <label class="block"><input type="radio" name="q1" value="scanf" class="mr-2"> scanf</label>
+                    <label class="block"><input type="radio" name="q1" value="gets" class="mr-2"> gets</label>
+                    <label class="block"><input type="radio" name="q1" value="fgets" class="mr-2"> fgets</label>
+                </div>
+                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
+                <div id="io-q1-result" class="mt-3"></div>
+            </form>
+            <button type="button" data-toggle-answer="io-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
+    </main>
+    <script>
+        document.getElementById('mobile-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-nav');
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+            } else {
+                menu.classList.add('hidden');
+            }
+        });
+    </script  <div id="io-q1-explain" style="display:none; margin-top:8px" class="note">Use <strong>fgets</strong> para leitura de linhas com limite de tamanho; <strong>gets</strong> é inseguro.</div>
+        </div>
+
+        </div>
+    </main>
+    <script src="js/script.js"></script>
+</body>
+</html>
