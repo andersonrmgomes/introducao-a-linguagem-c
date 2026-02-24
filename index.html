@@ -81,6 +81,57 @@
             <pre><code>#include &lt;stdio.h&gt;  // entrada/saída padrão
             </code></pre>
 
+            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Biblioteca math.h - Operações Matemáticas</h3>
+            <p class="text-gray-700 mb-4">A biblioteca <span class="inline-code">&lt;math.h&gt;</span> fornece funções matemáticas avançadas como raiz quadrada, exponenciação, logaritmo, trigonometria e a constante PI.</p>
+
+            <p class="text-gray-700 mb-4"><strong>Funções principais:</strong></p>
+            <ul class="text-gray-700 list-disc list-inside space-y-1 mb-4">
+                <li><span class="inline-code">sqrt(x)</span> — Raiz quadrada</li>
+                <li><span class="inline-code">pow(base, exp)</span> — Potência (base elevado a exp)</li>
+                <li><span class="inline-code">ceil(x)</span> — Arredonda para cima</li>
+                <li><span class="inline-code">floor(x)</span> — Arredonda para baixo</li>
+                <li><span class="inline-code">fabs(x)</span> — Valor absoluto</li>
+                <li><span class="inline-code">sin(x)</span>, <span class="inline-code">cos(x)</span>, <span class="inline-code">tan(x)</span> — Funções trigonométricas</li>
+                <li><span class="inline-code">log(x)</span> — Logaritmo natural</li>
+                <li><span class="inline-code">exp(x)</span> — e elevado a x</li>
+            </ul>
+
+            <p class="text-gray-700 mb-4"><strong>Constantes:</strong></p>
+            <ul class="text-gray-700 list-disc list-inside space-y-1 mb-4">
+                <li><span class="inline-code">M_PI</span> — Valor de π (3.14159...)</li>
+                <li><span class="inline-code">M_E</span> — Valor de e (2.71828...)</li>
+            </ul>
+
+            <p class="text-gray-700 mb-4"><strong>Exemplos:</strong></p>
+            <pre><code>#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+
+<span class="type">int</span> <span class="kw">main</span>(void) {
+    <span class="type">double</span> x = <span class="num">16.0</span>;
+    
+    <span class="comment">// Raiz quadrada</span>
+    <span class="func">printf</span>(<span class="str">"sqrt(16) = %.2f\n"</span>, <span class="func">sqrt</span>(x));
+    
+    <span class="comment">// Potência</span>
+    <span class="func">printf</span>(<span class="str">"pow(2, 3) = %.2f\n"</span>, <span class="func">pow</span>(<span class="num">2</span>, <span class="num">3</span>));
+    
+    <span class="comment">// Raio do círculo</span>
+    <span class="type">double</span> raio = <span class="num">5.0</span>;
+    <span class="type">double</span> area = <span class="type">M_PI</span> * <span class="func">pow</span>(raio, <span class="num">2</span>);
+    <span class="func">printf</span>(<span class="str">"Área do círculo (r=5) = %.2f\n"</span>, area);
+    
+    <span class="comment">// Trigonometria (em radianos)</span>
+    <span class="func">printf</span>(<span class="str">"sin(π/2) = %.2f\n"</span>, <span class="func">sin</span>(<span class="type">M_PI</span> / <span class="num">2</span>));
+    
+    <span class="comment">// Valor absoluto</span>
+    <span class="func">printf</span>(<span class="str">"fabs(-7.5) = %.2f\n"</span>, <span class="func">fabs</span>(-<span class="num">7.5</span>));
+    
+    <span class="kw">return</span> <span class="num">0</span>;
+}
+            </code></pre>
+
+            <p class="note"><strong>Importante:</strong> Ao compilar com <span class="inline-code">gcc</span>, adicione a flag <span class="inline-code">-lm</span> para linkar a biblioteca matemática: <span class="inline-code">gcc programa.c -o programa -lm</span></p>
+
             <p class="note">Exercício rápido: compile um arquivo `hello.c` com <span class="inline-code">gcc hello.c -o hello</span> e execute <span class="inline-code">./hello</span> (no Windows use o executável gerado).</p>
         </div>
 
