@@ -1,12 +1,16 @@
-# IntroC — Documentação de Apoio (Lógica de Programação)
+# Documentação de Linguagem C — Conceitos Fundamentais
 
 Este site é uma coleção de páginas didáticas sobre conceitos básicos de C (ANSI C style). Foi projetado para ser hospedado no GitHub Pages sem dependências externas (apenas HTML/CSS/JS puros).
 
 Conteúdo:
 - `index.html` — Primeiros passos, `main()`, `;` e `#include <stdio.h>`
+- `sintaxe.html` — Sintaxe básica, tipos de dados, declarações e operadores
 - `logica.html` — Operadores relacionais e lógicos; regra de verdade em C (0 = falso)
-- `fluxo.html` — `if/else`, `switch`, `for`
-- `funcoes.html` — funções e vetores (índice começa em 0)
+- `fluxo.html` — Estruturas de controle: `if/else`, `switch`, `for`, `while`, `do-while`
+- `funcoes.html` — Funções, parâmetros, retorno e vetores (índice começa em 0)
+- `io.html` — Entrada e saída: `printf()`, `scanf()`, `getchar()`, `puts()`
+- `reservadas.html` — Palavras-chave reservadas da linguagem C
+- `avancado.html` — Matrizes, ponteiros e conceitos avançados
 
 Testar localmente
 1) Abra `index.html` no navegador (duplo clique ou `start index.html` no PowerShell).
