@@ -1,41 +1,55 @@
-// Simple interactivity for exercises: reveal answers and simple quiz checking
 document.addEventListener('DOMContentLoaded', function () {
-	// Toggle answer visibility for elements with data-toggle-answer
-	document.querySelectorAll('[data-toggle-answer]').forEach(function(btn){
-		btn.addEventListener('click', function(){
-			var id = btn.getAttribute('data-toggle-answer');
-			var ans = document.getElementById(id);
-			if(!ans) return;
-			if(ans.style.display === 'none' || ans.style.display === '') {
-				ans.style.display = 'block';
-				btn.textContent = 'Ocultar resposta';
-			} else {
-				ans.style.display = 'none';
-				btn.textContent = 'Mostrar resposta';
-			}
-		});
-	});
+  // Mobile sidebar toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('overlay');
 
-	// Simple multiple choice checkers
-	document.querySelectorAll('[data-quiz-id]').forEach(function(form){
-		form.addEventListener('submit', function(e){
-			e.preventDefault();
-			var id = form.getAttribute('data-quiz-id');
-			var correct = form.getAttribute('data-quiz-answer');
-			var choice = form.querySelector('input[type=radio]:checked');
-			var out = document.getElementById(id + '-result');
-			if(!choice) {
-				out.textContent = 'Selecione uma opção.';
-				out.style.color = '#a33';
-				return;
-			}
-			if(choice.value === correct) {
-				out.textContent = 'Correto!';
-				out.style.color = '#0a0';
-			} else {
-				out.textContent = 'Incorreto. Reveja a explicação.';
-				out.style.color = '#a33';
-			}
-		});
-	});
+  if (menuBtn && sidebar) {
+    menuBtn.addEventListener('click', function () {
+      sidebar.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('show');
+    });
+  }
+  if (overlay) {
+    overlay.addEventListener('click', function () {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+    });
+  }
+
+  // Quiz checker
+  document.querySelectorAll('[data-quiz-id]').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const id = form.getAttribute('data-quiz-id');
+      const correct = form.getAttribute('data-quiz-answer');
+      const choice = form.querySelector('input[type=radio]:checked');
+      const out = document.getElementById(id + '-result');
+      if (!out) return;
+      if (!choice) {
+        out.textContent = '⚠ Selecione uma opção.';
+        out.className = 'result-warn';
+        return;
+      }
+      if (choice.value === correct) {
+        out.textContent = '✓ Correto!';
+        out.className = 'result-ok';
+      } else {
+        out.textContent = '✗ Incorreto — reveja a explicação.';
+        out.className = 'result-err';
+      }
+    });
+  });
+
+  // Toggle answer
+  document.querySelectorAll('[data-toggle-answer]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const id = btn.getAttribute('data-toggle-answer');
+      const el = document.getElementById(id);
+      if (!el) return;
+      const hidden = el.style.display === 'none' || el.style.display === '';
+      el.style.display = hidden ? 'block' : 'none';
+      btn.textContent = hidden ? 'Ocultar resposta' : 'Mostrar resposta';
+    });
+  });
 });

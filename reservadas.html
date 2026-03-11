@@ -1,108 +1,176 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Palavras Reservadas - C</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
-        pre code { display: block; white-space: pre; }
-        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
-        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
-    </style>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Palavras Reservadas — Linguagem C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
-<body class="bg-slate-50">
-    <!-- Navbar -->
-    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center font-bold text-lg text-cyan-400">
-                        <svg class="h-6 w-6 mr-2 text-cyan-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M8.7 6.3L3 12l5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M15.3 6.3L21 12l-5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Introdução à Linguagem C</span>
-                    </a>
-                </div>
-                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
-                    ☰
-                </button>
-                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
-                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
-                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
-                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
-                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">8. Palavras Reservadas</a>
-                </div>
-            </div>
-            <!-- Mobile menu (hidden by default) -->
-            <div id="mobile-nav" class="hidden md:hidden pb-4">
-                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
-                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
-                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
-                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">8. Palavras Reservadas</a>
-            </div>
-        </div>
-    </nav>
+<body>
+<div id="overlay"></div>
+<header id="topbar">
+  <a href="index.html" class="topbar-logo">&lt;C/&gt; Linguagem C</a>
+  <button id="menu-btn">&#9776;</button>
+</header>
+<nav id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="rgba(74,222,128,0.15)"/><path d="M8.5 6L3 12l5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 6L21 12l-5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><div class="sidebar-logo-text">Introdução à<br>Linguagem C</div><div class="sidebar-logo-sub">// guia completo</div></div>
+  </a>
+  <div class="sidebar-section">módulos</div>
+  <ul class="sidebar-nav">
+    <li><a href="index.html"><span class="nav-num">01</span> Primeiros Passos</a></li>
+    <li><a href="sintaxe.html"><span class="nav-num">02</span> Sintaxe e Tipos</a></li>
+    <li><a href="io.html"><span class="nav-num">03</span> Entrada e Saída</a></li>
+    <li><a href="logica.html"><span class="nav-num">04</span> Lógica e Operadores</a></li>
+    <li><a href="fluxo.html"><span class="nav-num">05</span> Estruturas de Fluxo</a></li>
+    <li><a href="funcoes.html"><span class="nav-num">06</span> Funções e Matrizes</a></li>
+    <li><a href="avancado.html"><span class="nav-num">07</span> Avançado</a></li>
+    <li><a href="reservadas.html" class="active"><span class="nav-num">08</span> Palavras Reservadas</a></li>
+  </ul>
+  <div class="sidebar-footer"><div class="sidebar-badge"><span class="dot"></span> C99 / C11 Standard</div></div>
+</nav>
 
-    <!-- Main content -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold text-blue-900 mb-8">Palavras Reservadas em C</h1>
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <p class="text-gray-700 mb-4">As palavras reservadas não podem ser usadas como identificadores (nomes de variáveis, funções, typedefs, etc.). Abaixo uma lista comum de palavras reservadas em C (C99/C11):</p>
-            <pre><code>auto      break     case      char
-const     continue  default   do
-double    else      enum      extern
-float     for       goto      if
-inline    int       long      register
-restrict  return    short     signed
-sizeof    static    struct    switch
-typedef   union     unsigned  void
-volatile  while     _Bool     _Complex
-_Imaginary  _Alignas  _Alignof  _Atomic
-_Generic  _Noreturn _Static_assert
-            </code></pre>
-            <p class="note">Observação: algumas palavras (ex.: <span class="inline-code">inline</span>, <span class="inline-code">restrict</span>, palavras com underline) foram introduzidas em versões posteriores do padrão C. Verifique o padrão alvo do seu compilador.</p>
-        </div>
+<main id="main">
+  <div class="page-header">
+    <div class="page-tag">// módulo 08 · referência</div>
+    <h1 class="page-title">Palavras<br>Reservadas</h1>
+    <p class="page-desc">Identificadores que pertencem à linguagem C e não podem ser usados como nomes de variáveis, funções ou tipos definidos pelo programador.</p>
+  </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício rápido</h2>
-            <p class="text-gray-700 mb-4">Escolha qual das opções abaixo é uma palavra reservada:</p>
-            <form data-quiz-id="reservadas-q1" data-quiz-answer="for">
-                <div class="space-y-2 mb-4">
-                    <label class="block"><input type="radio" name="q1" value="loop" class="mr-2"> loop</label>
-                    <label class="block"><input type="radio" name="q1" value="for" class="mr-2"> for</label>
-                    <label class="block"><input type="radio" name="q1" value="main" class="mr-2"> main</label>
-                </div>
-                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
-                <div id="reservadas-q1-result" class="mt-3"></div>
-            </form>
-            <button type="button" data-toggle-answer="reservadas-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
-    </main>
-    <script>
-        document.getElementById('mobile-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-nav');
-            const isHidden = menu.classList.contains('hidden');
-            if (isHidden) {
-                menu.classList.remove('hidden');
-            } else {
-                menu.classList.add('hidden');
-            }
-        });
-    </scriptdiv>
-    </main>
-    <script src="js/script.js"></script>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">📚</span>Palavras Reservadas do C (C99/C11)</h2>
+    <p>Estas palavras têm significado especial para o compilador. Usá-las como identificadores causa erro de compilação.</p>
+
+    <pre><code><span class="comment">/* Tipos e modificadores */</span>
+<span class="type">char</span>      <span class="type">short</span>     <span class="type">int</span>       <span class="type">long</span>
+<span class="type">float</span>     <span class="type">double</span>    <span class="type">void</span>      <span class="type">_Bool</span>
+<span class="type">_Complex</span>  <span class="type">_Imaginary</span>
+<span class="type">signed</span>    <span class="type">unsigned</span>
+
+<span class="comment">/* Controle de armazenamento */</span>
+<span class="kw">auto</span>      <span class="kw">extern</span>    <span class="kw">static</span>    <span class="kw">register</span>
+<span class="kw">const</span>     <span class="kw">volatile</span>  <span class="kw">restrict</span>  <span class="kw">inline</span>
+<span class="kw">typedef</span>
+
+<span class="comment">/* Estruturas e tipos compostos */</span>
+<span class="type">struct</span>    <span class="type">union</span>     <span class="type">enum</span>
+
+<span class="comment">/* Controle de fluxo */</span>
+<span class="kw">if</span>        <span class="kw">else</span>      <span class="kw">switch</span>    <span class="kw">case</span>
+<span class="kw">default</span>   <span class="kw">for</span>       <span class="kw">while</span>     <span class="kw">do</span>
+<span class="kw">break</span>     <span class="kw">continue</span>  <span class="kw">return</span>    <span class="kw">goto</span>
+
+<span class="comment">/* Operadores e misc */</span>
+<span class="kw">sizeof</span>
+
+<span class="comment">/* C11 — novidades */</span>
+<span class="kw">_Alignas</span>  <span class="kw">_Alignof</span>  <span class="kw">_Atomic</span>   <span class="kw">_Generic</span>
+<span class="kw">_Noreturn</span> <span class="kw">_Static_assert</span>      <span class="kw">_Thread_local</span></code></pre>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🔍</span>Referência por Categoria</h2>
+
+    <h3 class="card-sub">Tipos de Dados</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Palavra</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">char</span></td><td>Tipo inteiro de 8 bits / caractere</td></tr>
+          <tr><td><span class="ic">int</span></td><td>Tipo inteiro padrão</td></tr>
+          <tr><td><span class="ic">float</span></td><td>Ponto flutuante de precisão simples</td></tr>
+          <tr><td><span class="ic">double</span></td><td>Ponto flutuante de dupla precisão</td></tr>
+          <tr><td><span class="ic">void</span></td><td>Ausência de tipo / sem retorno</td></tr>
+          <tr><td><span class="ic">struct</span></td><td>Declara tipo agregado (registro)</td></tr>
+          <tr><td><span class="ic">union</span></td><td>Tipo que compartilha memória entre membros</td></tr>
+          <tr><td><span class="ic">enum</span></td><td>Tipo de enumeração de constantes inteiras</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="card-sub">Qualificadores e Modificadores</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Palavra</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">const</span></td><td>Valor não pode ser modificado após inicialização</td></tr>
+          <tr><td><span class="ic">volatile</span></td><td>Valor pode mudar externamente (hardware, threads)</td></tr>
+          <tr><td><span class="ic">static</span></td><td>Variável com duração estática / função com escopo interno</td></tr>
+          <tr><td><span class="ic">extern</span></td><td>Variável/função definida em outro arquivo</td></tr>
+          <tr><td><span class="ic">register</span></td><td>Sugere armazenamento em registrador (obsoleto)</td></tr>
+          <tr><td><span class="ic">signed</span> / <span class="ic">unsigned</span></td><td>Controla sinal do tipo inteiro</td></tr>
+          <tr><td><span class="ic">short</span> / <span class="ic">long</span></td><td>Controla tamanho do tipo inteiro</td></tr>
+          <tr><td><span class="ic">inline</span></td><td>Sugere expansão inline da função (C99)</td></tr>
+          <tr><td><span class="ic">typedef</span></td><td>Cria alias para um tipo</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="card-sub">Controle de Fluxo</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Palavra</th><th>Uso</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">if / else</span></td><td>Condicional simples</td></tr>
+          <tr><td><span class="ic">switch / case / default</span></td><td>Desvio múltiplo</td></tr>
+          <tr><td><span class="ic">for</span></td><td>Laço com contador</td></tr>
+          <tr><td><span class="ic">while</span></td><td>Laço com condição pré-testada</td></tr>
+          <tr><td><span class="ic">do</span></td><td>Laço com condição pós-testada (<span class="ic">do-while</span>)</td></tr>
+          <tr><td><span class="ic">break</span></td><td>Interrompe laço ou switch</td></tr>
+          <tr><td><span class="ic">continue</span></td><td>Pula para a próxima iteração</td></tr>
+          <tr><td><span class="ic">return</span></td><td>Retorna valor e encerra função</td></tr>
+          <tr><td><span class="ic">goto</span></td><td>Desvio incondicional (evite usar)</td></tr>
+          <tr><td><span class="ic">sizeof</span></td><td>Retorna tamanho em bytes de um tipo/variável</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <strong>Atenção:</strong> palavras como <span class="ic">inline</span>, <span class="ic">restrict</span> e as que começam com <span class="ic">_</span> foram introduzidas em versões posteriores (C99/C11). Verifique o padrão alvo do seu compilador com a flag <span class="ic">-std=c11</span>.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🧠</span>Exercício</h2>
+    <div class="quiz-card">
+      <form data-quiz-id="reservadas-q1" data-quiz-answer="for">
+        <div class="quiz-title">Qual das opções abaixo é uma palavra reservada em C? <span class="badge">Q8</span></div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q1" value="loop"> <span class="ic">loop</span></label></li>
+          <li><label><input type="radio" name="q1" value="for"> <span class="ic">for</span></label></li>
+          <li><label><input type="radio" name="q1" value="main"> <span class="ic">main</span></label></li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Verificar →</button>
+        <div id="reservadas-q1-result"></div>
+      </form>
+      <button type="button" data-toggle-answer="reservadas-q1-explain" class="btn btn-ghost" style="margin-top:14px;">Mostrar resposta</button>
+      <div id="reservadas-q1-explain" class="answer-reveal">
+        <span class="ic">for</span> é uma palavra reservada usada para laços. <span class="ic">main</span> é apenas uma função convencional — pode ser reusada como identificador (embora seja má prática). <span class="ic">loop</span> não existe em C.
+      </div>
+    </div>
+  </div>
+
+  <!-- Conclusão -->
+  <div class="card" style="background:linear-gradient(135deg,rgba(74,222,128,0.05) 0%,transparent 70%);border-color:rgba(74,222,128,0.15);">
+    <h2 class="card-title"><span class="card-title-icon">🎉</span>Parabéns!</h2>
+    <p>Você concluiu todos os 8 módulos do guia de <strong>Introdução à Linguagem C</strong>. Agora você tem uma base sólida para:</p>
+    <ul style="margin:12px 0 16px 20px;color:#94a3b8;">
+      <li>Escrever programas C completos com entrada, saída e lógica</li>
+      <li>Usar funções para modularizar o código</li>
+      <li>Manipular arrays, strings e ponteiros</li>
+      <li>Ler e escrever arquivos</li>
+      <li>Entender a fundo como a memória funciona</li>
+    </ul>
+    <p>Próximos passos sugeridos: <strong>estruturas (struct)</strong>, <strong>listas ligadas</strong>, <strong>alocação dinâmica avançada</strong> e <strong>programação de sistemas</strong>.</p>
+  </div>
+
+  <nav class="page-nav">
+    <a href="avancado.html"><div><span class="nav-dir">← anterior</span><span class="nav-label">Avançado</span></div></a>
+    <a href="index.html"><div><span class="nav-dir">início →</span><span class="nav-label">Primeiros Passos</span></div></a>
+  </nav>
+</main>
+<script src="js/script.js"></script>
 </body>
 </html>

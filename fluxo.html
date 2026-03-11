@@ -1,206 +1,189 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Estruturas de Fluxo - Linguagem C</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
-        pre code { display: block; white-space: pre; }
-        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
-        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
-    </style>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Estruturas de Fluxo — Linguagem C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
-<body class="bg-slate-50">
-    <!-- Navbar -->
-    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center font-bold text-lg text-cyan-400">
-                        <svg class="h-6 w-6 mr-2 text-cyan-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M8.7 6.3L3 12l5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M15.3 6.3L21 12l-5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Introdução à Linguagem C</span>
-                    </a>
-                </div>
-                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
-                    ☰
-                </button>
-                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
-                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
-                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">5. Estruturas de Fluxo</a>
-                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
-                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
-                </div>
-            </div>
-            <!-- Mobile menu (hidden by default) -->
-            <div id="mobile-nav" class="hidden md:hidden pb-4">
-                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
-                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">5. Estruturas de Fluxo</a>
-                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
-                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
-            </div>
-        </div>
-    </nav>
+<body>
+<div id="overlay"></div>
+<header id="topbar">
+  <a href="index.html" class="topbar-logo">&lt;C/&gt; Linguagem C</a>
+  <button id="menu-btn">&#9776;</button>
+</header>
+<nav id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="rgba(74,222,128,0.15)"/><path d="M8.5 6L3 12l5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 6L21 12l-5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><div class="sidebar-logo-text">Introdução à<br>Linguagem C</div><div class="sidebar-logo-sub">// guia completo</div></div>
+  </a>
+  <div class="sidebar-section">módulos</div>
+  <ul class="sidebar-nav">
+    <li><a href="index.html"><span class="nav-num">01</span> Primeiros Passos</a></li>
+    <li><a href="sintaxe.html"><span class="nav-num">02</span> Sintaxe e Tipos</a></li>
+    <li><a href="io.html"><span class="nav-num">03</span> Entrada e Saída</a></li>
+    <li><a href="logica.html"><span class="nav-num">04</span> Lógica e Operadores</a></li>
+    <li><a href="fluxo.html" class="active"><span class="nav-num">05</span> Estruturas de Fluxo</a></li>
+    <li><a href="funcoes.html"><span class="nav-num">06</span> Funções e Matrizes</a></li>
+    <li><a href="avancado.html"><span class="nav-num">07</span> Avançado</a></li>
+    <li><a href="reservadas.html"><span class="nav-num">08</span> Palavras Reservadas</a></li>
+  </ul>
+  <div class="sidebar-footer"><div class="sidebar-badge"><span class="dot"></span> C99 / C11 Standard</div></div>
+</nav>
 
-    <!-- Main content -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold text-blue-900 mb-8">Estruturas de Controle</h1>
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">If - Else</h2>
-            <p class="text-gray-700 mb-4">O <span class="inline-code">if</span> avalia uma expressão; se for verdadeira (diferente de 0), executa o bloco. Caso contrário, o <span class="inline-code">else</span> opcional é executado.</p>
-            <pre><code><span class="kw">if</span> (idade &gt;= <span class="num">18</span>) {
-    <span class="func">printf</span>(<span class="str">"Maior de idade\n"</span>);
+<main id="main">
+  <div class="page-header">
+    <div class="page-tag">// módulo 05</div>
+    <h1 class="page-title">Estruturas<br>de Controle</h1>
+    <p class="page-desc">Controle o fluxo do seu programa com condicionais e laços: <span class="ic">if/else</span>, <span class="ic">switch</span>, <span class="ic">for</span>, <span class="ic">while</span> e <span class="ic">do-while</span>.</p>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🔀</span>if / else if / else</h2>
+    <p>Executa blocos de código com base em condições. Se a condição for diferente de zero, o bloco é executado.</p>
+
+    <pre><code><span class="type">int</span> nota = <span class="num">75</span>;
+
+<span class="kw">if</span> (nota &gt;= <span class="num">90</span>) {
+    <span class="func">printf</span>(<span class="str">"A — Excelente\n"</span>);
+} <span class="kw">else if</span> (nota &gt;= <span class="num">70</span>) {
+    <span class="func">printf</span>(<span class="str">"B — Bom\n"</span>);
+} <span class="kw">else if</span> (nota &gt;= <span class="num">50</span>) {
+    <span class="func">printf</span>(<span class="str">"C — Regular\n"</span>);
 } <span class="kw">else</span> {
-    <span class="func">printf</span>(<span class="str">"Menor de idade\n"</span>);
-}
-            </code></pre>
-        </div>
+    <span class="func">printf</span>(<span class="str">"D — Reprovado\n"</span>);
+}</code></pre>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Switch</h2>
-            <p class="text-gray-700 mb-4">O <span class="inline-code">switch</span> compara uma expressão inteira ou caractere com constantes <span class="inline-code">case</span>. Use <span class="inline-code">break</span> para evitar queda para o próximo caso (fall-through).</p>
-            <pre><code><span class="kw">switch</span> (opcao) {
-    <span class="kw">case</span> <span class="num">1</span>:
-        <span class="func">printf</span>(<span class="str">"Opção 1\n"</span>);
-        <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">2</span>:
-        <span class="func">printf</span>(<span class="str">"Opção 2\n"</span>);
-        <span class="kw">break</span>;
-    <span class="kw">default</span>:
-        <span class="func">printf</span>(<span class="str">"Opção inválida\n"</span>);
-}
-            </code></pre>
-        </div>
+    <h3 class="card-sub">Operador Ternário</h3>
+    <p>Forma compacta de um <span class="ic">if/else</span> de uma linha: <span class="ic">condicao ? valor_se_true : valor_se_false</span></p>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Break - Instruções de Parada</h2>
-            <p class="text-gray-700 mb-4">A instrução <span class="inline-code">break</span> encerra imediatamente a execução de um loop (<span class="inline-code">for</span>, <span class="inline-code">while</span>, <span class="inline-code">do-while</span>) ou de um <span class="inline-code">switch</span>.</p>
+    <pre><code><span class="type">int</span> idade = <span class="num">20</span>;
+<span class="type">char</span> *status = (idade &gt;= <span class="num">18</span>) ? <span class="str">"maior"</span> : <span class="str">"menor"</span>;
+<span class="func">printf</span>(<span class="str">"%s de idade\n"</span>, status);  <span class="comment">// "maior de idade"</span>
 
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Break em Switch</h3>
-            <p class="text-gray-700 mb-4">Sem <span class="inline-code">break</span>, a execução continua para os próximos <span class="inline-code">case</span> (fall-through), o que geralmente causa comportamento indesejado.</p>
-            
-            <h4 class="text-lg font-bold text-blue-600 mb-3">❌ Sem Break (Fall-through)</h4>
-            <pre><code><span class="type">int</span> dia = <span class="num">2</span>;
+<span class="type">int</span> max = (a &gt; b) ? a : b;  <span class="comment">// maior entre a e b</span></code></pre>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🎚️</span>switch</h2>
+    <p>Compara uma expressão inteira ou <span class="ic">char</span> com constantes <span class="ic">case</span>. Use sempre <span class="ic">break</span> para evitar o <em>fall-through</em> (execução dos casos seguintes).</p>
+
+    <div class="grid-2" style="margin:16px 0;">
+      <div>
+        <div class="card-sub-sm" style="color:#f87171;">❌ Sem break (fall-through)</div>
+        <pre><code><span class="type">int</span> dia = <span class="num">2</span>;
 <span class="kw">switch</span> (dia) {
-    <span class="kw">case</span> <span class="num">1</span>:
-        <span class="func">printf</span>(<span class="str">"Segunda\n"</span>);
-    <span class="kw">case</span> <span class="num">2</span>:
-        <span class="func">printf</span>(<span class="str">"Terça\n"</span>);
-    <span class="kw">case</span> <span class="num">3</span>:
-        <span class="func">printf</span>(<span class="str">"Quarta\n"</span>);
+    <span class="kw">case</span> <span class="num">1</span>: <span class="func">printf</span>(<span class="str">"Seg\n"</span>);
+    <span class="kw">case</span> <span class="num">2</span>: <span class="func">printf</span>(<span class="str">"Ter\n"</span>);
+    <span class="kw">case</span> <span class="num">3</span>: <span class="func">printf</span>(<span class="str">"Qua\n"</span>);
 }
-<span class="comment">// Saída: Terça Quarta (executou case 2 e 3!)</span>
-            </code></pre>
-
-            <h4 class="text-lg font-bold text-blue-600 mb-3 mt-6">✅ Com Break (Correto)</h4>
-            <pre><code><span class="type">int</span> dia = <span class="num">2</span>;
+<span class="comment">// Saída: Ter Qua</span>
+<span class="comment">// (executou case 2 e 3!)</span></code></pre>
+      </div>
+      <div>
+        <div class="card-sub-sm" style="color:var(--accent);">✅ Com break (correto)</div>
+        <pre><code><span class="type">int</span> dia = <span class="num">2</span>;
 <span class="kw">switch</span> (dia) {
-    <span class="kw">case</span> <span class="num">1</span>:
-        <span class="func">printf</span>(<span class="str">"Segunda\n"</span>);
-        <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">2</span>:
-        <span class="func">printf</span>(<span class="str">"Terça\n"</span>);
-        <span class="kw">break</span>;
-    <span class="kw">case</span> <span class="num">3</span>:
-        <span class="func">printf</span>(<span class="str">"Quarta\n"</span>);
-        <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="num">1</span>: <span class="func">printf</span>(<span class="str">"Seg\n"</span>); <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="num">2</span>: <span class="func">printf</span>(<span class="str">"Ter\n"</span>); <span class="kw">break</span>;
+    <span class="kw">case</span> <span class="num">3</span>: <span class="func">printf</span>(<span class="str">"Qua\n"</span>); <span class="kw">break</span>;
+    <span class="kw">default</span>: <span class="func">printf</span>(<span class="str">"???\n"</span>);
 }
-<span class="comment">// Saída: Terça (apenas case 2 executado)</span>
-            </code></pre>
+<span class="comment">// Saída: Ter</span></code></pre>
+      </div>
+    </div>
+  </div>
 
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Break em Loops</h3>
-            <p class="text-gray-700 mb-4">Interrompe a execução do loop, passando para o código após o loop.</p>
-            
-            <h4 class="text-lg font-bold text-blue-600 mb-3">Exemplo: Busca em Vetor</h4>
-            <pre><code><span class="type">int</span> numeros[] = {<span class="num">2</span>, <span class="num">5</span>, <span class="num">8</span>, <span class="num">3</span>, <span class="num">9</span>};
-<span class="type">int</span> alvo = <span class="num">8</span>;
-<span class="type">int</span> encontrado = <span class="num">0</span>;
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🔄</span>Laços de Repetição</h2>
+    <p>C oferece três estruturas de repetição, cada uma com um caso de uso ideal.</p>
 
+    <h3 class="card-sub">for — Repetição controlada</h3>
+    <p>Ideal quando se sabe o número de iterações de antemão.</p>
+    <pre><code><span class="comment">// Sintaxe: for (inicialização; condição; incremento)</span>
 <span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">5</span>; i++) {
-    <span class="kw">if</span> (numeros[i] == alvo) {
-        <span class="func">printf</span>(<span class="str">"Encontrado na posição %d\n"</span>, i);
-        encontrado = <span class="num">1</span>;
-        <span class="kw">break</span>;  <span class="comment">// Sai do loop imediatamente</span>
-    }
+    <span class="func">printf</span>(<span class="str">"%d "</span>, i);  <span class="comment">// 0 1 2 3 4</span>
 }
 
-<span class="kw">if</span> (!encontrado) {
-    <span class="func">printf</span>(<span class="str">"Número não encontrado\n"</span>);
-}
-            </code></pre>
+<span class="comment">// Percorrendo array</span>
+<span class="type">int</span> nums[] = {<span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span>, <span class="num">40</span>, <span class="num">50</span>};
+<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">5</span>; i++) {
+    <span class="func">printf</span>(<span class="str">"nums[%d] = %d\n"</span>, i, nums[i]);
+}</code></pre>
 
-            <h4 class="text-lg font-bold text-blue-600 mb-3 mt-6">Exemplo: Menu com Loop</h4>
-            <pre><code><span class="type">int</span> opcao;
-<span class="kw">while</span> (<span class="num">1</span>) {
-    <span class="func">printf</span>(<span class="str">"\n1. Iniciar\n2. Configurar\n3. Sair\nOpção: "</span>);
+    <h3 class="card-sub">while — Repetição condicional</h3>
+    <p>A condição é verificada <em>antes</em> de cada iteração. Se já for falsa no início, o bloco nunca executa.</p>
+    <pre><code><span class="type">int</span> n = <span class="num">1</span>;
+<span class="kw">while</span> (n &lt;= <span class="num">5</span>) {
+    <span class="func">printf</span>(<span class="str">"%d\n"</span>, n);
+    n++;
+}
+
+<span class="comment">// Ler até digitar 0</span>
+<span class="type">int</span> val;
+<span class="kw">while</span> (<span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;val) == <span class="num">1</span> &amp;&amp; val != <span class="num">0</span>) {
+    <span class="func">printf</span>(<span class="str">"Lido: %d\n"</span>, val);
+}</code></pre>
+
+    <h3 class="card-sub">do-while — Executa ao menos uma vez</h3>
+    <p>A condição é verificada <em>depois</em> da primeira execução.</p>
+    <pre><code><span class="type">int</span> opcao;
+<span class="kw">do</span> {
+    <span class="func">printf</span>(<span class="str">"Menu: [1] Novo  [2] Sair\n"</span>);
     <span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;opcao);
-    
-    <span class="kw">if</span> (opcao == <span class="num">3</span>) {
-        <span class="func">printf</span>(<span class="str">"Encerrando...\n"</span>);
-        <span class="kw">break</span>;  <span class="comment">// Sai do while infinito</span>
-    }
+} <span class="kw">while</span> (opcao != <span class="num">2</span>);
+<span class="func">printf</span>(<span class="str">"Saindo...\n"</span>);</code></pre>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">⛔</span>break e continue</h2>
+
+    <div class="grid-2" style="margin-top:8px;">
+      <div>
+        <div class="card-sub-sm">break — interrompe o laço</div>
+        <pre><code><span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">10</span>; i++) {
+    <span class="kw">if</span> (i == <span class="num">5</span>) <span class="kw">break</span>;
+    <span class="func">printf</span>(<span class="str">"%d "</span>, i);
 }
-            </code></pre>
-
-            <p class="note"><strong>Nota:</strong> Use <span class="inline-code">break</span> com moderação. Loops com múltiplas condições de saída podem ficar confusos. Para alternativas, considere usar <span class="inline-code">continue</span> para pular iterações.</p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Loop For</h2>
-            <p class="text-gray-700 mb-4">O laço <span class="inline-code">for</span> tem três partes: inicialização, condição e incremento.</p>
-            <pre><code><span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">10</span>; i++) {
-    <span class="func">printf</span>(<span class="str">"i = %d\n"</span>, i);
+<span class="comment">// 0 1 2 3 4</span></code></pre>
+      </div>
+      <div>
+        <div class="card-sub-sm">continue — pula a iteração</div>
+        <pre><code><span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">6</span>; i++) {
+    <span class="kw">if</span> (i % <span class="num">2</span> == <span class="num">0</span>) <span class="kw">continue</span>;
+    <span class="func">printf</span>(<span class="str">"%d "</span>, i);
 }
-            </code></pre>
+<span class="comment">// 1 3 5 (pula pares)</span></code></pre>
+      </div>
+    </div>
+  </div>
 
-            <p class="note">Observação: a inicialização pode declarar a variável (C99+) ou usar uma já existente.</p>
-        </div>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🧠</span>Exercício</h2>
+    <div class="quiz-card">
+      <form data-quiz-id="fluxo-q1" data-quiz-answer="do-while">
+        <div class="quiz-title">Qual estrutura garante que o bloco execute <strong>ao menos uma vez</strong>? <span class="badge">Q5</span></div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q1" value="for"> <span class="ic">for</span></label></li>
+          <li><label><input type="radio" name="q1" value="while"> <span class="ic">while</span></label></li>
+          <li><label><input type="radio" name="q1" value="do-while"> <span class="ic">do-while</span></label></li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Verificar →</button>
+        <div id="fluxo-q1-result"></div>
+      </form>
+      <button type="button" data-toggle-answer="fluxo-q1-explain" class="btn btn-ghost" style="margin-top:14px;">Mostrar resposta</button>
+      <div id="fluxo-q1-explain" class="answer-reveal">
+        O <span class="ic">do-while</span> verifica a condição <em>após</em> executar o bloco, então o corpo sempre executa pelo menos uma vez. Útil para menus interativos e validação de entrada.
+      </div>
+    </div>
+  </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício</h2>
-            <form data-quiz-id="fluxo-q1" data-quiz-answer="3">
-                <p class="text-gray-700 mb-3"><strong>1.</strong> Quantas vezes o corpo do loop <span class="inline-code">for (int i = 0; i &lt; 3; i++)</span> será executado?</p>
-                <div class="space-y-2 mb-4">
-                    <label class="block"><input type="radio" name="q1" value="2" class="mr-2"> 2</label>
-                    <label class="block"><input type="radio" name="q1" value="3" class="mr-2"> 3</label>
-                    <label class="block"><input type="radio" name="q1" value="4" class="mr-2"> 4</label>
-                </div>
-                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
-                <div id="fluxo-q1-result" class="mt-3"></div>
-            </form>
-
-            <button type="button" data-toggle-answer="fluxo-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
-            <div id="fluxo-q1-explain" style="display:none; margin-top:0.75rem" class="note">
-                O loop será executado 3 vezes: i = 0, 1 e 2. Ao final i vale 3 e a condição falha.
-    </main>
-    <script>
-        document.getElementById('mobile-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-nav');
-            const isHidden = menu.classList.contains('hidden');
-            if (isHidden) {
-                menu.classList.remove('hidden');
-            } else {
-                menu.classList.add('hidden');
-            }
-        });
-    </scriptdiv>
-        </div>
-    </main>
-    <script src="js/script.js"></script>
+  <nav class="page-nav">
+    <a href="logica.html"><div><span class="nav-dir">← anterior</span><span class="nav-label">Lógica e Operadores</span></div></a>
+    <a href="funcoes.html"><div><span class="nav-dir">próximo →</span><span class="nav-label">Funções e Matrizes</span></div></a>
+  </nav>
+</main>
+<script src="js/script.js"></script>
 </body>
 </html>

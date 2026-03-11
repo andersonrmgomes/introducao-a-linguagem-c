@@ -1,233 +1,212 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Matrizes e Ponteiros - Linguagem C</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
-        pre code { display: block; white-space: pre; }
-        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
-        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
-    </style>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Tópicos Avançados — Linguagem C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
-<body class="bg-slate-50">
-    <!-- Navbar -->
-    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center font-bold text-lg text-cyan-400">
-                        <svg class="h-6 w-6 mr-2 text-cyan-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M8.7 6.3L3 12l5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M15.3 6.3L21 12l-5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Introdução à Linguagem C</span>
-                    </a>
-                </div>
-                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
-                    ☰
-                </button>
-                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
-                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
-                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
-                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">7. Avançado</a>
-                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
-                </div>
-            </div>
-            <!-- Mobile menu (hidden by default) -->
-            <div id="mobile-nav" class="hidden md:hidden pb-4">
-                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">3. Entrada e Saída</a>
-                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
-                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">7. Avançado</a>
-                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
-            </div>
-        </div>
-    </nav>
+<body>
+<div id="overlay"></div>
+<header id="topbar">
+  <a href="index.html" class="topbar-logo">&lt;C/&gt; Linguagem C</a>
+  <button id="menu-btn">&#9776;</button>
+</header>
+<nav id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="rgba(74,222,128,0.15)"/><path d="M8.5 6L3 12l5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 6L21 12l-5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><div class="sidebar-logo-text">Introdução à<br>Linguagem C</div><div class="sidebar-logo-sub">// guia completo</div></div>
+  </a>
+  <div class="sidebar-section">módulos</div>
+  <ul class="sidebar-nav">
+    <li><a href="index.html"><span class="nav-num">01</span> Primeiros Passos</a></li>
+    <li><a href="sintaxe.html"><span class="nav-num">02</span> Sintaxe e Tipos</a></li>
+    <li><a href="io.html"><span class="nav-num">03</span> Entrada e Saída</a></li>
+    <li><a href="logica.html"><span class="nav-num">04</span> Lógica e Operadores</a></li>
+    <li><a href="fluxo.html"><span class="nav-num">05</span> Estruturas de Fluxo</a></li>
+    <li><a href="funcoes.html"><span class="nav-num">06</span> Funções e Matrizes</a></li>
+    <li><a href="avancado.html" class="active"><span class="nav-num">07</span> Avançado</a></li>
+    <li><a href="reservadas.html"><span class="nav-num">08</span> Palavras Reservadas</a></li>
+  </ul>
+  <div class="sidebar-footer"><div class="sidebar-badge"><span class="dot"></span> C99 / C11 Standard</div></div>
+</nav>
 
-    <!-- Main content -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold text-blue-900 mb-8">Matrizes e Ponteiros</h1>
+<main id="main">
+  <div class="page-header">
+    <div class="page-tag">// módulo 07</div>
+    <h1 class="page-title">Tópicos<br>Avançados</h1>
+    <p class="page-desc">Ponteiros, alocação dinâmica e manipulação de arquivos — o coração do poder de C sobre memória e sistema.</p>
+  </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Matrizes (Vetores)</h2>
-            <p class="text-gray-700 mb-4">Um vetor (array) armazena vários elementos do mesmo tipo em posições contíguas de memória. O primeiro índice é sempre <strong>0</strong>.</p>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🎯</span>Ponteiros</h2>
+    <p>Um ponteiro é uma variável que armazena um <strong>endereço de memória</strong>. Com ponteiros você pode referenciar e modificar dados indiretamente — essencial para funções, arrays e alocação dinâmica.</p>
 
-            <pre><code><span class="type">int</span> v[<span class="num">10</span>];  <span class="comment">// índices 0..9</span>
-v[<span class="num">0</span>] = <span class="num">12</span>;
-v[<span class="num">9</span>] = <span class="num">5</span>;  <span class="comment">// último elemento</span>
+    <div class="grid-2" style="margin:16px 0;">
+      <div style="background:var(--bg-3);border-radius:10px;padding:16px;border:1px solid var(--border);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:8px;">&amp; — address-of</div>
+        <div style="font-size:13px;color:#94a3b8;">Obtém o endereço de uma variável: <span class="ic">&amp;x</span> retorna o endereço onde <span class="ic">x</span> está na memória.</div>
+      </div>
+      <div style="background:var(--bg-3);border-radius:10px;padding:16px;border:1px solid var(--border);">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent-2);margin-bottom:8px;">* — dereference</div>
+        <div style="font-size:13px;color:#94a3b8;">Acessa o valor no endereço apontado: <span class="ic">*px</span> lê ou escreve no local onde <span class="ic">px</span> aponta.</div>
+      </div>
+    </div>
 
-<span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; <span class="num">10</span>; i++) {
-    <span class="func">printf</span>(<span class="str">"v[%d] = %d\n"</span>, i, v[i]);
-}
-            </code></pre>
+    <pre><code><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
 
-            <p class="note">Acessar um índice fora do intervalo (por exemplo, <span class="inline-code">v[10]</span>) causa comportamento indefinido — pode ler/escrever memória inválida.</p>
-        </div>
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span>  x  = <span class="num">42</span>;
+    <span class="type">int</span> *px = &amp;x;   <span class="comment">// px aponta para x</span>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Ponteiros</h2>
-            <p class="text-gray-700 mb-4">Um ponteiro é uma variável cujo valor é um endereço de memória. Ponteiros são usados para referenciar e modificar dados indiretamente.</p>
+    <span class="func">printf</span>(<span class="str">"x   = %d\n"</span>,  x);    <span class="comment">// 42</span>
+    <span class="func">printf</span>("<span class="str">&px  = %p\n"</span>, &amp;x);   <span class="comment">// endereço de x</span>
+    <span class="func">printf</span>(<span class="str">"px  = %p\n"</span>,  px);   <span class="comment">// mesmo endereço</span>
+    <span class="func">printf</span>(<span class="str">"*px = %d\n"</span>, *px);   <span class="comment">// 42 (valor em x)</span>
 
-            <pre><code><span class="type">int</span> x = <span class="num">42</span>;
-<span class="type">int</span> *px = &amp;x;   <span class="comment">// px aponta para x</span>
+    *px = <span class="num">100</span>;   <span class="comment">// altera x indiretamente</span>
+    <span class="func">printf</span>(<span class="str">"x agora = %d\n"</span>, x);  <span class="comment">// 100</span>
 
-<span class="func">printf</span>(<span class="str">"x = %d, *px = %d\n"</span>, x, *px);
+    <span class="kw">return</span> <span class="num">0</span>;
+}</code></pre>
 
-*px = <span class="num">10</span>;     <span class="comment">// altera x indiretamente</span>
-            </code></pre>
+    <h3 class="card-sub">Ponteiros em Funções</h3>
+    <p>Passe ponteiros para permitir que uma função modifique variáveis do chamador:</p>
 
-            <p class="text-gray-700 mb-4">Operadores:</p>
-            <ul class="text-gray-700 list-disc list-inside space-y-2 mb-4">
-                <li><span class="inline-code">&amp;</span> — operador 'address-of' (ex.: <span class="inline-code">&amp;x</span>).</li>
-                <li><span class="inline-code">*</span> — operador 'dereference' (ex.: <span class="inline-code">*px</span>).</li>
-            </ul>
-
-            <p class="note">Ponteiros mal usados podem causar erros graves (segfaults) ou corrupção de memória. Sempre inicialize ponteiros antes de usar.</p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Acesso a Arquivos de Texto</h2>
-            <p class="text-gray-700 mb-4">Em C, você pode ler e escrever arquivos usando funções de I/O. A biblioteca padrão fornece funções como <span class="inline-code">fopen()</span>, <span class="fread()}</span>, <span class="inline-code">fwrite()</span> e <span class="inline-code">fclose()</span>.</p>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Função fopen() - Abrir Arquivo</h3>
-            <p class="text-gray-700 mb-4">Abre um arquivo e retorna um ponteiro do tipo <span class="inline-code">FILE*</span>.</p>
-            <pre><code><span class="type">FILE</span> *<span class="func">fopen</span>(<span class="type">const char</span> *nome, <span class="type">const char</span> *modo)
-            </code></pre>
-            <p class="text-gray-700 mb-4"><strong>Modos de abertura:</strong></p>
-            <ul class="text-gray-700 list-disc list-inside space-y-1 mb-4">
-                <li><span class="inline-code">"r"</span> — Leitura (arquivo deve existir)</li>
-                <li><span class="inline-code">"w"</span> — Escrita (cria ou sobrescreve arquivo)</li>
-                <li><span class="inline-code">"a"</span> — Append (adiciona ao final do arquivo)</li>
-                <li><span class="inline-code">"r+"</span> — Leitura e escrita</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Escrevendo em Arquivo</h3>
-            <pre><code><span class="type">FILE</span> *arquivo = <span class="func">fopen</span>(<span class="str">"dados.txt"</span>, <span class="str">"w"</span>);
-
-<span class="kw">if</span> (arquivo == <span class="type">NULL</span>) {
-    <span class="func">printf</span>(<span class="str">"Erro ao abrir arquivo!\n"</span>);
-    <span class="kw">return</span> <span class="num">1</span>;
+    <pre><code><span class="comment">// Troca dois valores via ponteiros</span>
+<span class="type">void</span> <span class="func">troca</span>(<span class="type">int</span> *a, <span class="type">int</span> *b) {
+    <span class="type">int</span> tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
-<span class="func">fprintf</span>(arquivo, <span class="str">"Nome: João\n"</span>);
-<span class="func">fprintf</span>(arquivo, <span class="str">"Idade: 25\n"</span>);
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span> x = <span class="num">10</span>, y = <span class="num">20</span>;
+    <span class="func">troca</span>(&amp;x, &amp;y);
+    <span class="func">printf</span>(<span class="str">"x=%d y=%d\n"</span>, x, y);  <span class="comment">// x=20 y=10</span>
+    <span class="kw">return</span> <span class="num">0</span>;
+}</code></pre>
 
-<span class="func">fclose</span>(arquivo);  <span class="comment">// sempre fechar o arquivo</span>
-            </code></pre>
+    <div class="warn">
+      Sempre inicialize ponteiros antes de usar. Um ponteiro não inicializado aponta para um endereço aleatório — desreferenciar causa <strong>segfault</strong> ou corrupção silenciosa de memória.
+    </div>
+  </div>
 
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Lendo Arquivo Linha por Linha</h3>
-            <pre><code><span class="type">FILE</span> *arquivo = <span class="func">fopen</span>(<span class="str">"dados.txt"</span>, <span class="str">"r"</span>);
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">💾</span>Alocação Dinâmica de Memória</h2>
+    <p>Aloca memória em tempo de execução com <span class="ic">malloc</span>, <span class="ic">calloc</span> e <span class="ic">realloc</span>. Sempre libere com <span class="ic">free</span>.</p>
 
-<span class="kw">if</span> (arquivo == <span class="type">NULL</span>) {
-    <span class="func">printf</span>(<span class="str">"Erro ao abrir arquivo!\n"</span>);
-    <span class="kw">return</span> <span class="num">1</span>;
+    <pre><code><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;stdlib.h&gt;</span>
+
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span> n = <span class="num">5</span>;
+
+    <span class="comment">// malloc: aloca n ints sem inicializar</span>
+    <span class="type">int</span> *v = (<span class="type">int</span> *)<span class="func">malloc</span>(n * <span class="kw">sizeof</span>(<span class="type">int</span>));
+    <span class="kw">if</span> (v == NULL) {
+        <span class="func">fprintf</span>(stderr, <span class="str">"Memória insuficiente\n"</span>);
+        <span class="kw">return</span> <span class="num">1</span>;
+    }
+
+    <span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; n; i++) v[i] = (i + <span class="num">1</span>) * <span class="num">10</span>;
+    <span class="kw">for</span> (<span class="type">int</span> i = <span class="num">0</span>; i &lt; n; i++) <span class="func">printf</span>(<span class="str">"%d "</span>, v[i]);
+    <span class="func">printf</span>(<span class="str">"\n"</span>);
+
+    <span class="func">free</span>(v);   <span class="comment">// libera a memória!</span>
+    v = NULL;  <span class="comment">// boa prática: evita dangling pointer</span>
+    <span class="kw">return</span> <span class="num">0</span>;
+}</code></pre>
+
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead><tr><th>Função</th><th>Uso</th><th>Inicializa?</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">malloc(n)</span></td><td>Aloca n bytes</td><td>Não (lixo)</td></tr>
+          <tr><td><span class="ic">calloc(q, t)</span></td><td>Aloca q×t bytes</td><td>Sim (zeros)</td></tr>
+          <tr><td><span class="ic">realloc(p, n)</span></td><td>Redimensiona bloco</td><td>—</td></tr>
+          <tr><td><span class="ic">free(p)</span></td><td>Libera memória</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">📁</span>Acesso a Arquivos</h2>
+    <p>C permite ler e escrever arquivos com as funções da <span class="ic">stdio.h</span>. O fluxo de trabalho é sempre: <strong>abrir → operar → fechar</strong>.</p>
+
+    <h3 class="card-sub">Escrevendo em arquivo</h3>
+    <pre><code><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="type">FILE</span> *f = <span class="func">fopen</span>(<span class="str">"dados.txt"</span>, <span class="str">"w"</span>);
+    <span class="kw">if</span> (f == NULL) {
+        <span class="func">perror</span>(<span class="str">"Erro ao abrir arquivo"</span>);
+        <span class="kw">return</span> <span class="num">1</span>;
+    }
+
+    <span class="func">fprintf</span>(f, <span class="str">"Nome: João\n"</span>);
+    <span class="func">fprintf</span>(f, <span class="str">"Idade: %d\n"</span>, <span class="num">25</span>);
+
+    <span class="func">fclose</span>(f);
+    <span class="func">printf</span>(<span class="str">"Arquivo salvo.\n"</span>);
+    <span class="kw">return</span> <span class="num">0</span>;
+}</code></pre>
+
+    <h3 class="card-sub">Lendo arquivo linha por linha</h3>
+    <pre><code><span class="type">FILE</span> *f = <span class="func">fopen</span>(<span class="str">"dados.txt"</span>, <span class="str">"r"</span>);
+<span class="kw">if</span> (f == NULL) { <span class="func">perror</span>(<span class="str">"erro"</span>); <span class="kw">return</span> <span class="num">1</span>; }
+
+<span class="type">char</span> linha[<span class="num">256</span>];
+<span class="kw">while</span> (<span class="func">fgets</span>(linha, <span class="kw">sizeof</span>(linha), f) != NULL) {
+    <span class="func">printf</span>(<span class="str">"%s"</span>, linha);  <span class="comment">// fgets já inclui '\n'</span>
 }
+<span class="func">fclose</span>(f);</code></pre>
 
-<span class="type">char</span> linha[<span class="num">100</span>];
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead><tr><th>Modo</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">"r"</span></td><td>Leitura (arquivo deve existir)</td></tr>
+          <tr><td><span class="ic">"w"</span></td><td>Escrita (cria ou sobrescreve)</td></tr>
+          <tr><td><span class="ic">"a"</span></td><td>Append (adiciona ao final)</td></tr>
+          <tr><td><span class="ic">"r+"</span></td><td>Leitura e escrita</td></tr>
+          <tr><td><span class="ic">"rb"</span> / <span class="ic">"wb"</span></td><td>Modo binário</td></tr>
+        </tbody>
+      </table>
+    </div>
 
-<span class="comment">// fgets() lê até quebra de linha ou EOF</span>
-<span class="kw">while</span> (<span class="func">fgets</span>(linha, <span class="num">100</span>, arquivo) != <span class="type">NULL</span>) {
-    <span class="func">printf</span>(<span class="str">"%s"</span>, linha);  <span class="comment">// já inclui \n</span>
-}
+    <div class="note">
+      <strong>Boas práticas:</strong> Sempre verifique se <span class="ic">fopen</span> retornou <span class="ic">NULL</span>. Sempre feche arquivos com <span class="ic">fclose</span>. Use <span class="ic">perror</span> para mensagens de erro descritivas.
+    </div>
+  </div>
 
-<span class="func">fclose</span>(arquivo);
-            </code></pre>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🧠</span>Exercício</h2>
+    <div class="quiz-card">
+      <form data-quiz-id="avancado-q1" data-quiz-answer="0">
+        <div class="quiz-title">Qual é o índice do primeiro elemento de um vetor? <span class="badge">Q7</span></div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q1" value="0"> 0</label></li>
+          <li><label><input type="radio" name="q1" value="1"> 1</label></li>
+          <li><label><input type="radio" name="q1" value="-1"> -1</label></li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Verificar →</button>
+        <div id="avancado-q1-result"></div>
+      </form>
+      <button type="button" data-toggle-answer="avancado-q1-explain" class="btn btn-ghost" style="margin-top:14px;">Mostrar resposta</button>
+      <div id="avancado-q1-explain" class="answer-reveal">
+        O primeiro índice é <span class="ic">0</span>. Em <span class="ic">int v[5]</span>, os índices válidos são 0, 1, 2, 3 e 4. Acessar <span class="ic">v[5]</span> é fora dos limites.
+      </div>
+    </div>
+  </div>
 
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Lendo Arquivo Caracter por Caracter</h3>
-            <pre><code><span class="type">FILE</span> *arquivo = <span class="func">fopen</span>(<span class="str">"dados.txt"</span>, <span class="str">"r"</span>);
-<span class="type">int</span> c;
-
-<span class="comment">// fgetc() retorna EOF (-1) ao final do arquivo</span>
-<span class="kw">while</span> ((c = <span class="func">fgetc</span>(arquivo)) != <span class="type">EOF</span>) {
-    <span class="func">putchar</span>(c);  <span class="comment">// imprime o caracter</span>
-}
-
-<span class="func">fclose</span>(arquivo);
-            </code></pre>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Adicionando Dados (Append)</h3>
-            <pre><code><span class="type">FILE</span> *arquivo = <span class="func">fopen</span>(<span class="str">"log.txt"</span>, <span class="str">"a"</span>);
-
-<span class="comment">// Adiciona ao final do arquivo sem apagar conteúdo anterior</span>
-<span class="func">fprintf</span>(arquivo, <span class="str">"Entrada de log: operação concluída\n"</span>);
-
-<span class="func">fclose</span>(arquivo);
-            </code></pre>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo Completo: Cópia de Arquivo</h3>
-            <pre><code><span class="comment">// Copia conteúdo de um arquivo para outro</span>
-<span class="type">FILE</span> *origem = <span class="func">fopen</span>(<span class="str">"origem.txt"</span>, <span class="str">"r"</span>);
-<span class="type">FILE</span> *destino = <span class="func">fopen</span>(<span class="str">"copia.txt"</span>, <span class="str">"w"</span>);
-
-<span class="kw">if</span> (origem == <span class="type">NULL</span> || destino == <span class="type">NULL</span>) {
-    <span class="func">printf</span>(<span class="str">"Erro ao abrir arquivo!\n"</span>);
-    <span class="kw">return</span> <span class="num">1</span>;
-}
-
-<span class="type">int</span> c;
-<span class="kw">while</span> ((c = <span class="func">fgetc</span>(origem)) != <span class="type">EOF</span>) {
-    <span class="func">fputc</span>(c, destino);  <span class="comment">// escreve no arquivo destino</span>
-}
-
-<span class="func">fclose</span>(origem);
-<span class="func">fclose</span>(destino);
-<span class="func">printf</span>(<span class="str">"Arquivo copiado com sucesso!\n"</span>);
-            </code></pre>
-
-            <p class="note"><strong>Boas práticas:</strong>
-            <ul class="text-gray-700 list-disc list-inside space-y-1">
-                <li>Sempre verifique se <span class="inline-code">fopen()</span> retornou <span class="inline-code">NULL</span></li>
-                <li>Use <span class="inline-code">fclose()</span> para fechar arquivos quando terminar</li>
-                <li>Trate erros de leitura/escrita apropriadamente</li>
-                <li>Use modos apropriados: não misture leitura em "r" com "w"</li>
-            </ul>
-            </p>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Exercício</h2>
-            <form data-quiz-id="avancado-q1" data-quiz-answer="0">
-                <p class="text-gray-700 mb-3"><strong>1.</strong> Qual o índice do primeiro elemento de um vetor?</p>
-                <div class="space-y-2 mb-4">
-                    <label class="block"><input type="radio" name="q1" value="0" class="mr-2"> 0</label>
-                    <label class="block"><input type="radio" name="q1" value="1" class="mr-2"> 1</label>
-                    <label class="block"><input type="radio" name="q1" value="-1" class="mr-2"> -1</label>
-                </div>
-                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
-                <div id="avancado-q1-result" class="mt-3"></div>
-            </form>
-
-            <button type="button" data-toggle-answer="avancado-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
-            <div id="avancado-q1-explain" style="display:none; margin-top:0.75rem" class="note">
-                O primeiro índice é <strong>0</strong>. Ex.: em <span class="inline-code">int v[5]</span>, os índices válidos são 0..4.
-            </div>
-    </main>
-    <script>
-        document.getElementById('mobile-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-nav');
-            const isHidden = menu.classList.contains('hidden');
-            if (isHidden) {
-                menu.classList.remove('hidden');
-            } else {
-                menu.classList.add('hidden');
-            }
-        });
-    </script>
-    <script src="js/script.js"></script>></script
-        </div>
-    </main>
+  <nav class="page-nav">
+    <a href="funcoes.html"><div><span class="nav-dir">← anterior</span><span class="nav-label">Funções e Matrizes</span></div></a>
+    <a href="reservadas.html"><div><span class="nav-dir">próximo →</span><span class="nav-label">Palavras Reservadas</span></div></a>
+  </nav>
+</main>
+<script src="js/script.js"></script>
 </body>
 </html>

@@ -1,302 +1,173 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Entrada e Saída em C</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        pre { background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 0.5rem; overflow: auto; font-family: 'Fira Code', monospace; line-height: 1.5; border-left: 4px solid #00bcd4; }
-        pre code { display: block; white-space: pre; }
-        .inline-code { background: #eff6fc; color: #004a8d; padding: 0.2rem 0.4rem; border-radius: 0.25rem; font-family: monospace; }
-        .note { background: rgba(15, 23, 36, 0.05); padding: 0.75rem; border-radius: 0.5rem; border-left: 3px solid #00bcd4; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f1f5f9; font-weight: 600; }
-    </style>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Entrada e Saída — Linguagem C</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
-<body class="bg-slate-50">
-    <!-- Navbar -->
-    <nav class="sticky top-0 bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center font-bold text-lg text-cyan-400">
-                        <svg class="h-6 w-6 mr-2 text-cyan-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <path d="M8.7 6.3L3 12l5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M15.3 6.3L21 12l-5.7 5.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span>Introdução à Linguagem C</span>
-                    </a>
-                </div>
-                <button id="mobile-toggle" class="md:hidden text-white px-2 py-2 rounded-md text-2xl" aria-expanded="false">
-                    ☰
-                </button>
-                <div id="nav-menu" class="hidden md:flex md:items-center gap-1">
-                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                    <a href="sintaxe.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                    <a href="io.html" class="px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white transition">3. Entrada e Saída</a>
-                    <a href="logica.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                    <a href="fluxo.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
-                    <a href="funcoes.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                    <a href="avancado.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
-                    <a href="reservadas.html" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
-                </div>
-            </div>
-            <!-- Mobile menu (hidden by default) -->
-            <div id="mobile-nav" class="hidden md:hidden pb-4">
-                <a href="index.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">1. Primeiros Passos</a>
-                <a href="sintaxe.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">2. Sintaxe e Tipos</a>
-                <a href="io.html" class="block px-3 py-2 rounded-md text-sm font-medium bg-blue-700 text-white">3. Entrada e Saída</a>
-                <a href="logica.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">4. Lógica e Operadores</a>
-                <a href="fluxo.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">5. Estruturas de Fluxo</a>
-                <a href="funcoes.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">6. Funções e Matrizes</a>
-                <a href="avancado.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">7. Avançado</a>
-                <a href="reservadas.html" class="block px-3 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition">8. Palavras Reservadas</a>
-            </div>
-        </div>
-    </nav>
+<body>
+<div id="overlay"></div>
+<header id="topbar">
+  <a href="index.html" class="topbar-logo">&lt;C/&gt; Linguagem C</a>
+  <button id="menu-btn">&#9776;</button>
+</header>
+<nav id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"><rect width="24" height="24" rx="6" fill="rgba(74,222,128,0.15)"/><path d="M8.5 6L3 12l5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 6L21 12l-5.5 6" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div><div class="sidebar-logo-text">Introdução à<br>Linguagem C</div><div class="sidebar-logo-sub">// guia completo</div></div>
+  </a>
+  <div class="sidebar-section">módulos</div>
+  <ul class="sidebar-nav">
+    <li><a href="index.html"><span class="nav-num">01</span> Primeiros Passos</a></li>
+    <li><a href="sintaxe.html"><span class="nav-num">02</span> Sintaxe e Tipos</a></li>
+    <li><a href="io.html" class="active"><span class="nav-num">03</span> Entrada e Saída</a></li>
+    <li><a href="logica.html"><span class="nav-num">04</span> Lógica e Operadores</a></li>
+    <li><a href="fluxo.html"><span class="nav-num">05</span> Estruturas de Fluxo</a></li>
+    <li><a href="funcoes.html"><span class="nav-num">06</span> Funções e Matrizes</a></li>
+    <li><a href="avancado.html"><span class="nav-num">07</span> Avançado</a></li>
+    <li><a href="reservadas.html"><span class="nav-num">08</span> Palavras Reservadas</a></li>
+  </ul>
+  <div class="sidebar-footer"><div class="sidebar-badge"><span class="dot"></span> C99 / C11 Standard</div></div>
+</nav>
 
-    <!-- Main content -->
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-bold text-blue-900 mb-8">Entrada e Saída (I/O)</h1>
+<main id="main">
+  <div class="page-header">
+    <div class="page-tag">// módulo 03</div>
+    <h1 class="page-title">Entrada e Saída<br>em C</h1>
+    <p class="page-desc">A biblioteca <span class="ic">stdio.h</span> fornece todas as ferramentas para comunicação com o usuário: <span class="ic">printf</span>, <span class="ic">scanf</span>, <span class="ic">fgets</span> e muito mais.</p>
+  </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Visão Geral</h2>
-            <p class="text-gray-700">Em C, a biblioteca padrão <span class="inline-code">stdio.h</span> fornece funções de entrada e saída como <span class="inline-code">printf</span>, <span class="inline-code">scanf</span>, e <span class="inline-code">fgets</span>. Use <span class="inline-code">printf</span> para formatar saída e <span class="inline-code">scanf</span> ou <span class="inline-code">fgets</span> para ler da entrada padrão.</p>
-        </div>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">📤</span>printf — Saída Formatada</h2>
+    <p><span class="ic">printf</span> escreve texto formatado na saída padrão (stdout). Usa especificadores de formato para converter tipos em texto.</p>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4"><span class="inline-code">printf</span> e especificadores</h2>
-            <p class="text-gray-700 mb-4"><span class="inline-code">printf</span> usa especificadores de formato para converter valores em texto.</p>
-            <div class="overflow-x-auto mb-4">
-            <table>
-                <thead><tr><th>Especificador</th><th>Tipo</th><th>Exemplo</th></tr></thead>
-                <tbody>
-                    <tr><td><span class="inline-code">%d</span></td><td>int</td><td><span class="inline-code">printf("%d", 10);</span></td></tr>
-                    <tr><td><span class="inline-code">%c</span></td><td>char</td><td><span class="inline-code">printf("%c", 'A');</span></td></tr>
-                    <tr><td><span class="inline-code">%f</span></td><td>float</td><td><span class="inline-code">printf("%.2f", 3.1415);</span></td></tr>
-                    <tr><td><span class="inline-code">%lf</span></td><td>double</td><td><span class="inline-code">printf("%lf", 2.71828);</span></td></tr>
-                    <tr><td><span class="inline-code">%s</span></td><td>string (char*)</td><td><span class="inline-code">printf("%s", name);</span></td></tr>
-                </tbody>
-            </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Especificador</th><th>Tipo</th><th>Exemplo de uso</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">%d / %i</span></td><td>int</td><td><span class="ic">printf("%d", 10);</span></td></tr>
+          <tr><td><span class="ic">%u</span></td><td>unsigned int</td><td><span class="ic">printf("%u", 300u);</span></td></tr>
+          <tr><td><span class="ic">%c</span></td><td>char</td><td><span class="ic">printf("%c", 'A');</span></td></tr>
+          <tr><td><span class="ic">%f</span></td><td>float / double</td><td><span class="ic">printf("%.2f", 3.1415);</span></td></tr>
+          <tr><td><span class="ic">%e</span></td><td>notação científica</td><td><span class="ic">printf("%e", 0.000123);</span></td></tr>
+          <tr><td><span class="ic">%s</span></td><td>string (char*)</td><td><span class="ic">printf("%s", nome);</span></td></tr>
+          <tr><td><span class="ic">%p</span></td><td>ponteiro</td><td><span class="ic">printf("%p", &amp;var);</span></td></tr>
+          <tr><td><span class="ic">%%</span></td><td>literal %</td><td><span class="ic">printf("100%%");</span></td></tr>
+        </tbody>
+      </table>
+    </div>
 
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Campo de largura e precisão</h3>
-            <p class="text-gray-700">Ex.: <span class="inline-code">%6d</span> (largura mínima 6), <span class="inline-code">%.2f</span> (2 casas decimais), <span class="inline-code">%8.3f</span> (largura 8, 3 decimais).</p>
-        </div>
+    <h3 class="card-sub">Exemplos Práticos</h3>
+    <pre><code><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4"><span class="inline-code">scanf</span> e especificadores de entrada</h2>
-            <p class="text-gray-700 mb-4"><span class="inline-code">scanf</span> lê dados da entrada padrão segundo especificadores de formato. Sempre use <span class="inline-code">&amp;</span> para obter o endereço das variáveis (exceto arrays e strings).</p>
-            
-            <div class="overflow-x-auto mb-6">
-                <table>
-                    <thead><tr><th>Especificador</th><th>Tipo</th><th>Descrição</th><th>Exemplo</th></tr></thead>
-                    <tbody>
-                        <tr>
-                            <td><span class="inline-code">%d</span></td>
-                            <td>int</td>
-                            <td>Lê um valor inteiro (decimal)</td>
-                            <td><span class="inline-code">scanf("%d", &amp;n);</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="inline-code">%f</span></td>
-                            <td>float</td>
-                            <td>Lê um valor de ponto flutuante (precisão simples)</td>
-                            <td><span class="inline-code">scanf("%f", &amp;x);</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="inline-code">%lf</span></td>
-                            <td>double</td>
-                            <td>Lê um valor de ponto flutuante (dupla precisão)</td>
-                            <td><span class="inline-code">scanf("%lf", &amp;y);</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="inline-code">%c</span></td>
-                            <td>char</td>
-                            <td>Lê um único caractere (incluindo espaços)</td>
-                            <td><span class="inline-code">scanf("%c", &amp;ch);</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="inline-code">%s</span></td>
-                            <td>char[] (string)</td>
-                            <td>Lê uma sequência de caracteres até o primeiro espaço</td>
-                            <td><span class="inline-code">scanf("%s", name);</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="inline-code">%x</span></td>
-                            <td>int</td>
-                            <td>Lê um valor hexadecimal</td>
-                            <td><span class="inline-code">scanf("%x", &amp;hex);</span></td>
-                        </tr>
-                        <tr>
-                            <td><span class="inline-code">%o</span></td>
-                            <td>int</td>
-                            <td>Lê um valor octal</td>
-                            <td><span class="inline-code">scanf("%o", &amp;oct);</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="comment">// Formatação de inteiros</span>
+    <span class="func">printf</span>(<span class="str">"%d\n"</span>, <span class="num">42</span>);           <span class="comment">// 42</span>
+    <span class="func">printf</span>(<span class="str">"%6d\n"</span>, <span class="num">42</span>);          <span class="comment">// "    42"</span>
+    <span class="func">printf</span>(<span class="str">"%-6d|\n"</span>, <span class="num">42</span>);         <span class="comment">// "42    |"</span>
+    <span class="func">printf</span>(<span class="str">"%06d\n"</span>, <span class="num">42</span>);          <span class="comment">// "000042"</span>
 
-            <h3 class="text-xl font-bold text-blue-700 mb-4">Limitando a quantidade de caracteres</h3>
-            <p class="text-gray-700 mb-4">Para evitar overflow de buffer, especifique o número máximo de caracteres a ler:</p>
-            <pre><code><span class="type">char</span> name[32];
-<span class="func">scanf</span>(<span class="str">"%31s"</span>, name);  <span class="comment">// lê no máximo 31 caracteres (reserva 1 para '\0')</span>
+    <span class="comment">// Formatação de floats</span>
+    <span class="func">printf</span>(<span class="str">"%.2f\n"</span>, <span class="num">3.14159</span>);     <span class="comment">// 3.14</span>
+    <span class="func">printf</span>(<span class="str">"%8.3f\n"</span>, <span class="num">3.14159</span>);    <span class="comment">// "   3.142"</span>
+    <span class="func">printf</span>(<span class="str">"%e\n"</span>, <span class="num">0.000123</span>);      <span class="comment">// 1.230000e-04</span>
 
-<span class="type">char</span> buffer[50];
-<span class="func">scanf</span>(<span class="str">"%49c"</span>, buffer);  <span class="comment">// lê no máximo 49 caracteres</span>
-            </code></pre>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Pulando espaços e caracteres</h3>
-            <p class="text-gray-700 mb-4">Use espaço em branco no formato para pular espaços, ou use <span class="inline-code">*</span> para ignorar valores:</p>
-            <pre><code><span class="func">scanf</span>(<span class="str">" %c"</span>, &amp;ch);  <span class="comment">// espaço pula whitespace antes de ler %c</span>
-
-<span class="func">scanf</span>(<span class="str">"%d %*d %d"</span>, &amp;a, &amp;c);  <span class="comment">// lê inteiro, ignora inteiro, lê inteiro</span>
-            </code></pre>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Problemas comuns e boas práticas</h3>
-            <ul class="text-gray-700 mb-4 list-disc list-inside space-y-2">
-                <li><strong>Sempre use <span class="inline-code">&amp;</span> antes de variáveis simples</strong> — passa o endereço, não o valor.</li>
-                <li><strong><span class="inline-code">%s</span> é perigoso</strong> — lê até o primeiro espaço e pode causar overflow se o buffer for pequeno. Use <span class="inline-code">%31s</span> (por exemplo) para limitar.</li>
-                <li><strong>Verifique o retorno de <span class="inline-code">scanf</span></strong> — retorna o número de itens lidos com sucesso:</li>
-            </ul>
-
-            <pre><code><span class="type">int</span> n;
-<span class="type">int</span> result = <span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;n);
-<span class="kw">if</span> (result != <span class="num">1</span>) {
-    <span class="func">printf</span>(<span class="str">"Erro: entrada inválida\n"</span>);
-}
-            </code></pre>
-
-            <ul class="text-gray-700 list-disc list-inside space-y-2 mt-4">
-                <li><strong>Cuidado ao misturar <span class="inline-code">scanf</span> e <span class="inline-code">fgets</span></strong> — <span class="inline-code">scanf</span> pode deixar <span class="inline-code">\n</span> no buffer, afetando leituras posteriores.</li>
-                <li><strong>Para ler linhas inteiras</strong> prefira <span class="inline-code">fgets</span> ao invés de <span class="inline-code">%s</span>.</li>
-            </ul>
-
-            <h3 class="text-xl font-bold text-blue-700 mb-4 mt-6">Exemplo prático completo</h3>
-            <pre><code><span class="type">#include</span> &lt;stdio.h&gt;
-
-<span class="type">int</span> main(void) {
-    <span class="type">int</span> idade;
-    <span class="type">float</span> altura;
-    <span class="type">double</span> salario;
-    <span class="type">char</span> nome[50];
-    <span class="type">char</span> iniciais;
-
-    <span class="func">printf</span>(<span class="str">"Digite seu nome (máx 49 caracteres): "</span>);
-    <span class="func">scanf</span>(<span class="str">"%49s"</span>, nome);
-
-    <span class="func">printf</span>(<span class="str">"Digite sua inicial: "</span>);
-    <span class="func">scanf</span>(<span class="str">" %c"</span>, &amp;iniciais);  <span class="comment">// espaço pula whitespace</span>
-
-    <span class="func">printf</span>(<span class="str">"Digite sua idade: "</span>);
-    <span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;idade);
-
-    <span class="func">printf</span>(<span class="str">"Digite sua altura (m): "</span>);
-    <span class="func">scanf</span>(<span class="str">"%f"</span>, &amp;altura);
-
-    <span class="func">printf</span>(<span class="str">"Digite seu salário (R$): "</span>);
-    <span class="func">scanf</span>(<span class="str">"%lf"</span>, &amp;salario);
-
-    <span class="func">printf</span>(<span class="str">"=== Dados ===\n"</span>);
-    <span class="func">printf</span>(<span class="str">"Nome: %s\n"</span>, nome);
-    <span class="func">printf</span>(<span class="str">"Inicial: %c\n"</span>, iniciais);
-    <span class="func">printf</span>(<span class="str">"Idade: %d anos\n"</span>, idade);
-    <span class="func">printf</span>(<span class="str">"Altura: %.2f m\n"</span>, altura);
-    <span class="func">printf</span>(<span class="str">"Salário: R$ %.2lf\n"</span>, salario);
+    <span class="comment">// Strings</span>
+    <span class="func">printf</span>(<span class="str">"%-10s|\n"</span>, <span class="str">"Olá"</span>);     <span class="comment">// "Olá       |"</span>
 
     <span class="kw">return</span> <span class="num">0</span>;
-}
-            </code></pre>
-        </div>
+}</code></pre>
+  </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4"
-        <div c class="text-gray-700 mb-4"><span class="inline-code">fgets</span> lê até um máximo de caracteres ou até encontrar '\n'. É a forma segura de ler linhas (substitui <span class="inline-code">gets</span>, que é inseguro).</p>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">📥</span>scanf — Leitura da Entrada</h2>
+    <p><span class="ic">scanf</span> lê dados da entrada padrão (stdin) convertendo texto digitado pelo usuário para variáveis do programa.</p>
 
-            <pre><code><span class="comment">// Ler uma linha com fgets e remover o newline</span>
-char buf[128];
-if (<span class="func">fgets</span>(buf, sizeof(buf), stdin) != NULL) {
-    <span class="comment">// remover '\n' se presente</span>
-    size_t len = <span class="func">strcspn</span>(buf, "\n");
-    if (buf[len] == '\n') buf[len] = '\0';
-    <span class="func">printf</span>(<span class="str">"Linha: %s\n"</span>, buf);
-}
-            </code></pre>
+    <div class="note">
+      <strong>Regra de ouro:</strong> Sempre use <span class="ic">&amp;</span> antes do nome da variável (exceto arrays). Ex.: <span class="ic">scanf("%d", &amp;n)</span> — sem o <span class="ic">&amp;</span> causa comportamento indefinido.
+    </div>
 
-            <p class="text-gray-700 mt-4">Para usar <span class="inline-code">strcspn</span> inclua <span class="inline-code">string.h</span>. Outra opção é usar <span class="inline-code">sscanf</span> em uma string lida por <span class="inline-code">fgets</span> para parsear números com validação.</p>
-        </div>
+    <pre><code><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4"
-        <div class="card">
-            <h2>Exemplo completo: misturando I/O</h2>
-            <pre><code><span class="type">#include</span> &lt;stdio.h&gt;
-<span class="type">#include</span> &lt;string.h&gt;
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="type">int</span>    n;
+    <span class="type">float</span>  f;
+    <span class="type">double</span> d;
+    <span class="type">char</span>   ch;
+    <span class="type">char</span>   nome[<span class="num">50</span>];
 
-<span class="type">int</span> main(void) {
-    char nome[64];
-    int idade;
+    <span class="func">scanf</span>(<span class="str">"%d"</span>, &amp;n);         <span class="comment">// lê int</span>
+    <span class="func">scanf</span>(<span class="str">"%f"</span>, &amp;f);         <span class="comment">// lê float</span>
+    <span class="func">scanf</span>(<span class="str">"%lf"</span>, &amp;d);        <span class="comment">// lê double (atenção: %lf para scanf)</span>
+    <span class="func">scanf</span>(<span class="str">" %c"</span>, &amp;ch);       <span class="comment">// lê char (espaço ignora whitespace)</span>
+    <span class="func">scanf</span>(<span class="str">"%49s"</span>, nome);     <span class="comment">// lê string (sem &amp;!)</span>
 
-    <span class="func">printf</span>(<span class="str">"Digite seu nome: "</span>);
-    <span class="func">fgets</span>(nome, sizeof(nome), stdin);
-    nome[<span class="func">strcspn</span>(nome, "\n")] = '\0';
-
-    <span class="func">printf</span>(<span class="str">"Digite sua idade: "</span>);
-    if (<span class="func">fgets</span>(buf, sizeof(buf), stdin) != NULL) {
-        if (<span class="func">sscanf</span>(buf, <span class="str">"%d"</span>, &amp;idade) != 1) {
-            <span class="func">printf</span>(<span class="str">"Entrada inválida\n"</span>);
-            <span class="kw">return</span> <span class="num">1</span>;
-        }
-    }
-
-    <span class="func">printf</span>(<span class="str">"Nome: %s, Idade: %d\n"</span>, nome, idade);
+    <span class="func">printf</span>(<span class="str">"n=%d f=%.1f d=%.1f ch=%c nome=%s\n"</span>,
+           n, f, d, ch, nome);
     <span class="kw">return</span> <span class="num">0</span>;
-}
-            </code></pre>
-        </div>bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4">Resumo — Boas práticas</h2>
-            <ul class="text-gray-700 list-disc list-inside space-y-2">
-                <li>Prefira <span class="inline-code">fgets</span> para leitura de strings; remova o '\n' manualmente.</li>
-                <li>Use especificadores de largura em <span class="inline-code">scanf</span> (ex.: <span class="inline-code">%31s</span>).</li>
-                <li>Valide o retorno de <span class="inline-code">scanf</span> e <span class="inline-code">sscanf</span>.</li>
-                <li>Evite <span class="inline-code">gets</span> (removida do padrão). Use <span class="inline-code">fgets</span>.</li>
-            </ul>
-        </div>
+}</code></pre>
+  </div>
 
-        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-            <h2 class="text-2xl font-bold text-blue-700 mb-4"
-        <div class="card">
-            <h2>Ex class="text-gray-700 mb-3"><strong>1.</strong> Qual função é recomendada para leitura segura de linhas em C?</p>
-                <div class="space-y-2 mb-4">
-                    <label class="block"><input type="radio" name="q1" value="scanf" class="mr-2"> scanf</label>
-                    <label class="block"><input type="radio" name="q1" value="gets" class="mr-2"> gets</label>
-                    <label class="block"><input type="radio" name="q1" value="fgets" class="mr-2"> fgets</label>
-                </div>
-                <button type="submit" class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-md transition">Verificar</button>
-                <div id="io-q1-result" class="mt-3"></div>
-            </form>
-            <button type="button" data-toggle-answer="io-q1-explain" class="bg-gray-700 hover:bg-gray-800 text-white px-4 py-2 rounded-md transition mt-4">Mostrar resposta</button>
-    </main>
-    <script>
-        document.getElementById('mobile-toggle').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-nav');
-            const isHidden = menu.classList.contains('hidden');
-            if (isHidden) {
-                menu.classList.remove('hidden');
-            } else {
-                menu.classList.add('hidden');
-            }
-        });
-    </script  <div id="io-q1-explain" style="display:none; margin-top:8px" class="note">Use <strong>fgets</strong> para leitura de linhas com limite de tamanho; <strong>gets</strong> é inseguro.</div>
-        </div>
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">📄</span>fgets — Leitura Segura de Strings</h2>
+    <p><span class="ic">fgets</span> é a forma mais segura de ler strings com espaços, pois limita o número de caracteres lidos, evitando buffer overflow.</p>
 
-        </div>
-    </main>
-    <script src="js/script.js"></script>
+    <pre><code><span class="kw">#include</span> <span class="str">&lt;stdio.h&gt;</span>
+<span class="kw">#include</span> <span class="str">&lt;string.h&gt;</span>
+
+<span class="type">int</span> <span class="func">main</span>(<span class="type">void</span>) {
+    <span class="type">char</span> nome[<span class="num">100</span>];
+
+    <span class="func">printf</span>(<span class="str">"Digite seu nome completo: "</span>);
+    <span class="func">fgets</span>(nome, <span class="kw">sizeof</span>(nome), stdin);
+
+    <span class="comment">// fgets inclui o '\n' — remova se necessário:</span>
+    nome[<span class="func">strcspn</span>(nome, <span class="str">"\n"</span>)] = <span class="str">'\0'</span>;
+
+    <span class="func">printf</span>(<span class="str">"Olá, %s!\n"</span>, nome);
+    <span class="kw">return</span> <span class="num">0</span>;
+}</code></pre>
+
+    <div class="table-wrap" style="margin-top:16px;">
+      <table>
+        <thead><tr><th>Função</th><th>Uso</th><th>Observação</th></tr></thead>
+        <tbody>
+          <tr><td><span class="ic">scanf("%s")</span></td><td>Lê palavra única</td><td>Para na whitespace — não lê frases</td></tr>
+          <tr><td><span class="ic">fgets(buf, n, stdin)</span></td><td>Lê linha inteira</td><td>Inclui <span class="ic">\n</span>, mais seguro</td></tr>
+          <tr><td><span class="ic">getchar()</span></td><td>Lê um caractere</td><td>Retorna <span class="ic">int</span> (verifica EOF)</td></tr>
+          <tr><td><span class="ic">puts(str)</span></td><td>Imprime string + \n</td><td>Mais simples que printf para strings</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2 class="card-title"><span class="card-title-icon">🧠</span>Exercício</h2>
+    <div class="quiz-card">
+      <form data-quiz-id="io-q1" data-quiz-answer="fgets">
+        <div class="quiz-title">Qual função é mais segura para ler strings com espaços? <span class="badge">Q3</span></div>
+        <ul class="quiz-options">
+          <li><label><input type="radio" name="q1" value="scanf"> <span class="ic">scanf("%s", ...)</span></label></li>
+          <li><label><input type="radio" name="q1" value="fgets"> <span class="ic">fgets(buf, n, stdin)</span></label></li>
+          <li><label><input type="radio" name="q1" value="gets"> <span class="ic">gets(buf)</span> (obsoleta)</label></li>
+        </ul>
+        <button type="submit" class="btn btn-primary">Verificar →</button>
+        <div id="io-q1-result"></div>
+      </form>
+      <button type="button" data-toggle-answer="io-q1-explain" class="btn btn-ghost" style="margin-top:14px;">Mostrar resposta</button>
+      <div id="io-q1-explain" class="answer-reveal">
+        <span class="ic">fgets</span> é a opção correta: ela lê até <em>n-1</em> caracteres, inclui espaços e previne buffer overflow. A função <span class="ic">gets</span> foi removida do padrão C11 por ser insegura.
+      </div>
+    </div>
+  </div>
+
+  <nav class="page-nav">
+    <a href="sintaxe.html"><div><span class="nav-dir">← anterior</span><span class="nav-label">Sintaxe e Tipos</span></div></a>
+    <a href="logica.html"><div><span class="nav-dir">próximo →</span><span class="nav-label">Lógica e Operadores</span></div></a>
+  </nav>
+</main>
+<script src="js/script.js"></script>
 </body>
 </html>
